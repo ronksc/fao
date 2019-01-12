@@ -1,0 +1,68 @@
+@include media-breakpoint-up(xs) {
+	.page-template-template-about{
+		.text__element{
+			margin-top:30px;
+			font-size:30px;
+			font-weight:$semibold;
+			padding-bottom:10px;
+		
+			.text__element-title{
+				font-size:50px;
+			}
+		}
+		
+		.about__text-section{
+			margin-bottom:80px;
+		
+			.text_section-title{
+				font-size:50px;
+				font-weight:$semibold;
+				
+				&:after{
+					content:"";
+					background:#000;
+					width:100%;
+					height:25px;
+					margin:10px 0;
+					display:block;
+				}
+			}
+			
+			ul{
+				padding:0;
+				margin:0;
+				li{
+					list-style:none;
+					font-size:30px;
+					font-weight:$semibold;
+					padding-bottom:10px;
+					
+					&:before{
+						content:"-";
+						padding-right:40px;
+					}
+					
+					&:last-child{
+						padding-bottom:0;
+					}
+				}
+			}
+		}
+	}
+}
+
+@include media-breakpoint-up(sm) {
+
+}
+
+@include media-breakpoint-up(md) {
+	
+}
+
+@include media-breakpoint-up(lg) {
+	
+}
+
+@include media-breakpoint-up(xl) {
+
+}

@@ -1,0 +1,67 @@
+@include media-breakpoint-up(xs) {
+	header{
+		padding:15px 0 0 0;
+		//margin-bottom:20px;
+		
+		a.brand{
+			display:block;
+			img{
+				max-width:186px;
+			}
+		}
+		
+		.header-container{
+			position:relative;
+			
+			//padding-bottom:30px;
+			//margin-bottom:20px;
+			
+			&:after{
+				content:"";
+				display:block;
+				width:100%;
+				height:30px;
+				background:#000;
+			}
+			
+			.lang{
+				display:inline-block; 
+				margin-right:20px;
+				
+				select{
+					border:1px solid #000;
+					outline:none;
+					padding:3px 5px;
+					min-width:120px;
+					font-size:13px;
+					font-weight:$semibold;
+					color:#000;
+				}
+			}
+		}
+	}
+}
+
+@include media-breakpoint-up(sm) {
+
+}
+
+@include media-breakpoint-up(md) {
+	header{
+		a.brand{
+			display:block;
+			margin-left: -1px;
+			img{
+				max-width:359px;
+			}
+		}
+	}
+}
+
+@include media-breakpoint-up(lg) {
+	
+}
+
+@include media-breakpoint-up(xl) {
+
+}
