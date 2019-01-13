@@ -30,7 +30,7 @@ switch ($_SERVER['SERVER_NAME']) {
     define( 'DB_PASSWORD', 'root' );
     define( 'DB_HOST',     'localhost' );
 
-  case "gc.catus.tech":
+  case "fao.catus.tech":
     define( 'DB_NAME',     'fao' );
     define( 'WP_SITEURL',  'http://fao.catus.tech' );
     define( 'WP_HOME', 'http://fao.catus.tech' );
