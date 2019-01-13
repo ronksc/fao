@@ -20,6 +20,17 @@
       init: function() {
         // JavaScript to be fired on all pages
 		
+		function initNavToggle(){
+			$('.nav_toggle').click(function(){
+				$('.main-menu-wrapper').fadeIn();
+			});
+			
+			$('.btn_close').click(function(){
+				$('.main-menu-wrapper').fadeOut();						   
+			});
+		}
+		initNavToggle();
+		
 		function initialize(inital_point){			
 			var location = new google.maps.LatLng(inital_point.map_lat, inital_point.map_lng);
 	

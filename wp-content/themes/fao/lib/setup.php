@@ -104,5 +104,9 @@ function assets() {
   }
 
   wp_enqueue_script('sage/js', Assets\asset_path('scripts/main.js'), ['jquery'], null, true);
+  
+  wp_enqueue_script('fancybox/js', Assets\asset_path('scripts/vendor/jquery.fancybox.min.js'), ['jquery'], null, true);
+  wp_enqueue_style('fancybox/css', Assets\asset_path('styles/jquery.fancybox.css'), false, null);
+  
 }
 add_action('wp_enqueue_scripts', __NAMESPACE__ . '\\assets', 100);
