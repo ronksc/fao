@@ -189,20 +189,6 @@
 	}
 	
 	.module__instagram{
-		/*&:before, &:after{
-			content:"";
-			height:50px;
-			width:100%;
-			background:#000;
-		}
-		
-		&:before{
-			margin-bottom:20px;
-		}
-		
-		&:after{
-			margin-top:20px;
-		}*/
 	
 		.module__instagram-text{
 			font-weight:$semibold;
@@ -241,6 +227,10 @@
 					//font-weight:$semibold;
 					color:#b3b3b3;
 					
+					&:before{
+						display:none;
+					}
+					
 					a{
 						font-size:20px;
 						color:#000;
@@ -251,6 +241,15 @@
 					}
 				}
 			}
+		}
+	}
+	
+	.instagram-popup{
+		display: none; 
+		max-width:800px!important;
+		
+		a{
+			color:#000;
 		}
 	}
 	
