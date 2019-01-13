@@ -1,0 +1,60 @@
+@include media-breakpoint-up(xs) {
+	.page-template-template-contact, .page-template-template-contact-thankyou{
+		.contact-content{
+			padding-top:80px;
+			min-height:500px;
+		
+			h2{
+				font-weight:$semibold;
+				font-size:36px;
+			}
+		
+			h3{
+				font-weight:$semibold;
+				font-size:30px;
+				margin-bottom:30px;
+			}
+		
+			.address-container{				
+				p{
+					font-weight:normal;
+					font-size:24px;
+					margin-bottom:50px;
+				}
+			}
+			
+			.wpcf7{
+				label{
+					display:block;
+					width:100%;
+					span{
+						display:block;
+						input, textarea{
+							width:100%;
+							border:1px solid #000;
+							background:#fff;
+							font-size:15px;
+							padding:15px;
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+@include media-breakpoint-up(sm) {
+
+}
+
+@include media-breakpoint-up(md) {
+	
+}
+
+@include media-breakpoint-up(lg) {
+	
+}
+
+@include media-breakpoint-up(xl) {
+
+}

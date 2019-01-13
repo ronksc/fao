@@ -285,6 +285,20 @@
 			min-height:100px;
 		}	
 	}
+	
+	.module__logo_text{
+		margin-top:50px;
+		
+		.module__logo_text-image{
+			margin-bottom:30px;
+		}
+		
+		.module__logo_text-content{
+			p{
+				font-family:Lato;
+			}
+		}
+	}
 }
 
 @include media-breakpoint-up(sm) {
