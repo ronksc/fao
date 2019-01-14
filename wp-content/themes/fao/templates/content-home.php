@@ -11,8 +11,13 @@
 		<div class="text__element">
 			<span class="text__element-title">OUR CCSHOP</span> MULTIBRAND RETAIL SIGNATURE CONCEPT OFFERS A PERFECT MODERN/ VERSATILE NEST TO SHOW CASE FASHION, ACCESSORIES WITH THE BEST BRAND EXPERIENCE EDITION.
 		</div>
-		<div class="img__element">
-			<a href="/brand/"><img src="<?=get_stylesheet_directory_uri()?>/assets/images/home/home_2.jpg" class="img-fluid"/></a>
+		<div class="img__element video" style="width:100%; position:relative;">
+			<!--<a href="/brand/"><img src="<?=get_stylesheet_directory_uri()?>/assets/images/home/home_2.jpg" class="img-fluid"/></a>-->
+			<video width="100%" height="100%" autoplay muted loop>
+			  <source src="<?=get_stylesheet_directory_uri()?>/assets/images/EQIQ 470 x 1140.mp4" type="video/mp4">
+			Your browser does not support the video tag.
+			</video>
+			<a href="/brand/" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:999;"></a>
 		</div>
 	</div>
 	<div class="row module module__img-text">
