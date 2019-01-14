@@ -4,7 +4,7 @@
 			<span class="text__element-title">FREDALLARDOFFICE LIMITED</span> PROVIDES RETAIL INNOVATIONS AND BRANDED FASHION DESIGN.FOUNDED IN 2018 BY FRED ALLARD AND FASHION RETAIL PARTNERS .
 		</div>
 		<div class="img__element">
-			<img src="<?=get_stylesheet_directory_uri()?>/assets/images/home/home_1.jpg" class="img-fluid"/>
+			<a href="/ccshop/"><img src="<?=get_stylesheet_directory_uri()?>/assets/images/home/home_1.jpg" class="img-fluid"/></a>
 		</div>
 	</div>
 	<div class="row module module__img-text">
@@ -12,7 +12,7 @@
 			<span class="text__element-title">OUR CCSHOP</span> MULTIBRAND RETAIL SIGNATURE CONCEPT OFFERS A PERFECT MODERN/ VERSATILE NEST TO SHOW CASE FASHION, ACCESSORIES WITH THE BEST BRAND EXPERIENCE EDITION.
 		</div>
 		<div class="img__element">
-			<img src="<?=get_stylesheet_directory_uri()?>/assets/images/home/home_2.jpg" class="img-fluid"/>
+			<a href="/brand/"><img src="<?=get_stylesheet_directory_uri()?>/assets/images/home/home_2.jpg" class="img-fluid"/></a>
 		</div>
 	</div>
 	<div class="row module module__img-text">

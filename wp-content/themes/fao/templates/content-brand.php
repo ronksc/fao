@@ -55,13 +55,6 @@
 			</div>
 		</div>
 	</div>
-	
-	<div class="row module module__img-text">
-		<div class="img__element">
-			<img src="<?=get_stylesheet_directory_uri()?>/assets/images/home/home_1.jpg" class="img-fluid"/>
-		</div>
-	</div>
-	
 	<div class="row module module__storelocator">
 		<div class="module__storelocator-title">STORE LOCATOR</div>
 		

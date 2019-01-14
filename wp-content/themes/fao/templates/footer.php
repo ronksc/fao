@@ -15,7 +15,7 @@
 <!--	</section>-->
 	<div class="container">
 		<div class="privacy_policy">
-			<a href="#" class="">Privacy Policy</a>
+			<a href="/privacy-policy/" class="">Privacy Policy</a>
 		</div>
 	</div>
 </footer>

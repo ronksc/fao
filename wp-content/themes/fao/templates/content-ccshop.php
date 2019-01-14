@@ -24,7 +24,7 @@
 			 </div>
 			 
 			 <div class="row text-center logo_row">
-				<div class="col-md-6 align-self-center"><a href="#"><img src="<?=get_stylesheet_directory_uri()?>/assets/images/logo/logo_eqiq.png"/></a></div>
+				<div class="col-md-6 align-self-center"><a href="/brand/"><img src="<?=get_stylesheet_directory_uri()?>/assets/images/logo/logo_eqiq.png"/></a></div>
 				<div class="col-md-6 align-self-center"><a href="#"><img src="<?=get_stylesheet_directory_uri()?>/assets/images/logo/logo_enzo_angiolini.png"/></a></div>
 			 </div>
 			 
@@ -41,7 +41,7 @@
 			<p>STATIONED IN THE CENTER OF APAC MARKET POPULATED WITH MOBILE-FIRST AND DIGITAL-SAVVY FASHIONISTAS, CCSHOP TAKES ADVANTAGE OF ITS HUGE CUSTOMER AND FAN BASE CROSS ASIA, USING VARIOUS ONLINE CHANNELS TO RECRUIT AND ENGAGE WITH NEW AND EXISTING MEMBERS. SOCIAL COMMERCE, IN PARTICULAR, PLAYS A CRITICAL ROLE IN SUPPORTING CUSTOMER RELATIONSHIP. THIS INNOVATIVE BUSINESS APPROACH HAS BEEN PROVEN EFFECTIVE BY WAY OF REGULAR ONE-ON-ONE COMMUNICATION THROUGH THE CC CLUB DATABASE CONSISTING OF OVER 1.5 MILLION MEMBERS IN ASIA-PACIFIC REGION. CCSHOP’S SUCCESS ALSO LIES IN THE WELL-ESTABLISHED WECHAT STORE WHERE RESPONSIVE CONTENTS ARE MADE AVAILABLE EVERY DAY TO FEED THE APPETITE OF FASHIONISTAS OF ALL AGES AND STYLES.</p>
 		</div>
 		<div class="img__element">
-			<img src="<?=get_stylesheet_directory_uri()?>/assets/images/home/home_2.jpg" class="img-fluid"/>
+			<img src="<?=get_stylesheet_directory_uri()?>/assets/images/banner-ccshop.jpg" class="img-fluid"/>
 		</div>
 	</div>
 	

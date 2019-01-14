@@ -3,7 +3,7 @@
 
 body{
 	font-family: 'Barlow Condensed', sans-serif;
-	line-height:1.1;
+	line-height:1.4;
 	color:#000;
 }
 
@@ -31,7 +31,7 @@ p{
 }
 
 ul{
-	font-family:Lato;
+	//font-family:Lato;
 	padding:0;
 	margin-bottom:2rem;
 	
@@ -131,5 +131,9 @@ ul{
 		font-size:15px;
 		font-family:Lato;
 		line-height:1.8;
+	}
+	
+	ul{
+		font-family:Lato;
 	}
 }
