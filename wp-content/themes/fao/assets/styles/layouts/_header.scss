@@ -20,7 +20,7 @@
 				content:"";
 				display:block;
 				width:100%;
-				height:30px;
+				height:27px;
 				background:#000;
 			}
 			
@@ -116,7 +116,7 @@
 }
 
 @include media-breakpoint-up(sm) {
-
+	
 }
 
 @include media-breakpoint-up(md) {
@@ -125,7 +125,7 @@
 			display:block;
 			margin-left: -1px;
 			img{
-				max-width:359px;
+				max-width:324px;
 			}
 		}
 	}

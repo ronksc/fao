@@ -36,6 +36,10 @@
 						text-transform:uppercase;
 						//font-weight:$semibold;
 						font-size:20px;
+						
+						&:hover{
+							color:#b2b2b2;
+						}
 					}
 				}
 			}
@@ -75,9 +79,9 @@
 		
 		.privacy_policy{
 			margin:30px 0 10px 0;
-			a{
+			/*a{
 				font-size:16px;
-			}
+			}*/
 		}
 	}
 }

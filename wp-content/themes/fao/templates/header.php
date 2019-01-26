@@ -3,7 +3,7 @@
   	<div class="row">
 		<div class="col-7 col-md-5">
 			<a class="brand" href="<?= esc_url(home_url('/')); ?>">
-				<img src="<?=get_stylesheet_directory_uri()?>/assets/images/logo.gif" class="img-fluid"/><?php //bloginfo('name'); ?>
+				<img src="<?=get_stylesheet_directory_uri()?>/assets/images/fao-logo.svg" class="img-fluid"/><?php //bloginfo('name'); ?>
 			</a>	
 		</div>
 		<div class="col-5 col-md-7 text-right">
@@ -41,7 +41,7 @@
 	<div class="row justify-content-md-center">
 		<div class="col-md-4 text-center">
 			<div class="logo_container">
-				<img src="<?=get_stylesheet_directory_uri()?>/assets/images/logo-white.gif" />
+				<img src="<?=get_stylesheet_directory_uri()?>/assets/images/fao-logo-white.svg" />
 			</div>
 			<nav class="main-menu">
 				<div class="row">

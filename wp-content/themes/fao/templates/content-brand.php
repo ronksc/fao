@@ -25,7 +25,7 @@
 		<div class="col-12 col-md-5 lookbook__element">
 			<div class="lookbook__element-wrapper">
 				<div class="lookbook_element-table">
-					<div class="lookbook__element-title">SS 18 LOOKBOOK</div>
+					<div class="lookbook__element-title">SS18 LOOKBOOK</div>
 					<div class="lookbook__element-link">
 						<ul>
 							<li><a href="#">Ready to Wear</a></li>
@@ -44,7 +44,7 @@
 		<div class="col-12 pull-md-7 col-md-5 lookbook__element">
 			<div class="lookbook__element-wrapper">
 				<div class="lookbook_element-table">
-					<div class="lookbook__element-title">FW 18 LOOKBOOK</div>
+					<div class="lookbook__element-title">FW18 LOOKBOOK</div>
 					<div class="lookbook__element-link">
 						<ul>
 							<li><a href="#">Ready to Wear</a></li>
@@ -114,7 +114,7 @@
 		<div class="col-12 col-md-3 module__instagram-text">
 			
 			<h3><i class="fab fa-instagram"></i><br />CONNECT CCSHOP ON INSTAGRAM</h3>
-			<p>Get featured by tagging #eqiqpure</p>
+			<p>Get featured by tagging #CCSHOP!</p>
 			<a href="#">View Gallery</a>
 		</div>
 		<div class="col-12 col-md-9">
@@ -158,7 +158,7 @@
 			</div>
 			<div class="module__instagram-social text-right">
 				<ul>
-					<li>Follow eqiqpure!</li>
+					<li>Following CCSHOP!</li>
 					<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
 					<li><a href="#"><i class="fab fa-instagram"></i></a></li>
 					<li><a href="#"><i class="fab fa-weixin"></i></a></li>
