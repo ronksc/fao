@@ -1,5 +1,5 @@
-<div class="row justify-content-md-center">
-	<div class="col-md-10 general-content">
+<div class="row">
+	<div class="general-content">
 		<?php the_content(); ?>
 	</div>
 </div>

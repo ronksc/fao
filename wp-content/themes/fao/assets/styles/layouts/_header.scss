@@ -1,6 +1,6 @@
 @include media-breakpoint-up(xs) {
 	header{
-		padding:15px 0 0 0;
+		
 		//margin-bottom:20px;
 		
 		a.brand{
@@ -12,6 +12,8 @@
 		
 		.header-container{
 			position:relative;
+			background:#fff;
+			padding-top:15px;
 			
 			//padding-bottom:30px;
 			//margin-bottom:20px;

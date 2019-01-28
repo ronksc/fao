@@ -1,3 +1,18 @@
+<?php
+
+	if( isset($_GET['y']) ){
+		$blog_year = $_GET['y'];
+	}else{
+		$blog_year = '';
+	}	
+	
+	$full_uri = get_permalink();
+?>
+<script type="text/javascript">
+	var year_value = '<?=$blog_year;?>';
+	var page = 1;
+	var lastpage = false;
+</script>
 <div class="container">
 	<div class="row">
 		<div class="page_feature_image">
@@ -8,26 +23,57 @@
 	<div class="row">
 		<div class="press-container">
 			<h3>Explore what FAO is all about.</h3>
-			
-			<select class="year_select">
-				<option>Year published</option>
-				<option>2019</option>
-				<option>2018</option>
-				<option>2017</option>
+			<!--<form class="my-filter" method="GET" action="">-->
+			<?php
+				$years = $wpdb->get_col("SELECT DISTINCT YEAR(post_date) FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' ORDER BY post_date DESC");
+				
+			?>
+			<select id="year_select" class="year_select">
+				<option value=""> Year published </option>
+				<?php foreach($years as $year) : 
+					if($blog_year == $year){
+						$selected = 'selected="selected"';
+					}else{
+						$selected = '';
+					}
+				?>
+					<option value="<?php echo $full_uri .'?y='.$year ?>" <?=$selected?>><?php echo '<ul><li class"list-unstyled">' . $year .'</li></ul>';?></option>
+				<?php endforeach; ?>    
 			</select>
+			<!--</form>-->
 			
-			<div class="press-list">
-				<div class="press-list-item">
-					<div class="press-date">OCTOBER 25, 2018</div>
-					<a class="press-title-link" href="/press-detail/">The grant opening for the new CCshop</a>
-				</div>
-				<div class="press-list-item">
-					<div class="press-date">OCTOBER 25, 2018</div>
-					<a class="press-title-link" href="/press-detail/">The grant opening for the new CCshop</a>
-				</div>
-			</div>
+			<?php 
+			query_posts( 'post_type=post&post_status=publish&posts_per_page=5&paged='. get_query_var('paged').'&year='.$blog_year );
 			
-			<a class="button white margin-bottom-30" href="#">See more</a>
+			 if (have_posts()) : 
+			 	
+				echo '<div id="press_container" class="press-list">';
+				
+				while (have_posts()) : the_post(); ?>
+			
+				
+					<div class="press-list-item">
+						<div class="press-date"><? the_date(); ?></div>
+						<a class="press-title-link" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+					</div>		
+				
+			
+			<?php endwhile; 
+			
+				echo '</div>';
+			
+				//global $wp_query; // you can remove this line if everything works for you
+	 
+				// don't display the button if there are not enough posts
+				if (  $wp_query->max_num_pages > 1 )
+					echo '<div class="button white margin-bottom-30 press_loadmore">See more</div>'; // you can use <a> as well
+				
+				wp_reset_query();
+			
+			endif; 
+			
+			?>
+			
 		</div>
 	</div>
 	
@@ -93,9 +139,9 @@
 	<div class="row module module__newsletter justify-content-md-center">
 		<div class="col-10 module__newsletter-wrapper">
 			<div class="row">
-				<div class="col-12 col-md-6 newsletter-title">Enter Your e-mail to subscribe to Our newsletters</div>
-				<div class="col-12 col-md-4"><input type="email" placeholder="your email address" /></div>
-				<div class="col-12 col-md-2"><input class="button" type="submit" value="Submit" /></div>
+				<div class="col-12 col-md-4 col-lg-5 newsletter-title">Enter Your e-mail to subscribe to Our newsletters</div>
+				<div class="col-12 col-md-5 col-lg-5"><input type="email" placeholder="your email address" /></div>
+				<div class="col-12 col-md-3 col-lg-2"><input class="button" type="submit" value="Submit" /></div>
 			</div>
 		</div>
 	</div>

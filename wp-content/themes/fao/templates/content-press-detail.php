@@ -7,11 +7,18 @@
 	
 	<div class="row">
 		<div class="breadcumb">
-			<ul>
+			<?php					
+				if(function_exists('custom_breadcrumbs'))
+				{
+					custom_breadcrumbs();
+				}
+			?>
+		
+			<!--<ul>
 				<li><a href="#"><i class="fas fa-home"></i></a></li>
 				<li><a href="#">Press</a></li>
 				<li><a href="#">The grant opening for the new CCshop</a></li>
-			</ul>
+			</ul>-->
 		</div>
 	</div>
 	
@@ -91,9 +98,9 @@
 	<div class="row module module__newsletter justify-content-md-center">
 		<div class="col-10 module__newsletter-wrapper">
 			<div class="row">
-				<div class="col-12 col-md-6 newsletter-title">Enter Your e-mail to subscribe to Our newsletters</div>
-				<div class="col-12 col-md-4"><input type="email" placeholder="your email address" /></div>
-				<div class="col-12 col-md-2"><input class="button" type="submit" value="Submit" /></div>
+				<div class="col-12 col-md-4 col-lg-5 newsletter-title">Enter Your e-mail to subscribe to Our newsletters</div>
+				<div class="col-12 col-md-5 col-lg-5"><input type="email" placeholder="your email address" /></div>
+				<div class="col-12 col-md-3 col-lg-2"><input class="button" type="submit" value="Submit" /></div>
 			</div>
 		</div>
 	</div>

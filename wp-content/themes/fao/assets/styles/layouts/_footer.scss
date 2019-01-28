@@ -1,6 +1,11 @@
 @include media-breakpoint-up(xs) {
 	footer{
-		margin-top:30px;
+		//margin-top:30px;
+		
+		.footer-container{
+			padding-top:30px;
+			background:#fff;
+		}
 		
 		a.btp{
 			color:#666666;
@@ -31,6 +36,11 @@
 						margin-bottom:40px;
 						//margin:0;
 					}
+					
+					&:before{
+						display:none;
+					}
+					
 					a{
 						color:#fff;
 						text-transform:uppercase;
@@ -46,13 +56,25 @@
 			//}
 		}
 		
-		.privacy_policy{
+		.privacy_policy_wrapper{
 			margin:15px 0 10px 0;
+			font-family: 'Lato', sans-serif;
+			
+			span{
+				display:inline-block;
+				margin-right:20px;
+			}
+			
 			a{
 				font-size:12px;
-				font-family: 'Lato', sans-serif;
+				
 				font-weight:normal;
 				color:#7F7F7F;
+			}
+			
+			.copyright{
+				color:#7f7f7f;
+				font-size:12px;
 			}
 		}
 	}

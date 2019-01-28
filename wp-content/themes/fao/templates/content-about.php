@@ -11,7 +11,7 @@
 		
 		<div class="row about__text-section">
 			<div class="col-12">
-				<div class="text_section-title">RETAIL STORE OPERATION</div>
+				<h2>RETAIL STORE OPERATION</h2>
 				<ul>
 					<li>OVERALL LOCAL RETAIL ENVIRONMENT CONSULTATION/KNOWLEDGE</li>
 					<li>RELATIONSHIP WITH DEPARTMENT STORES MANAGEMENT AND LANDLORDS.</li>
@@ -25,7 +25,7 @@
 		</div>
 		<div class="row about__text-section">
 			<div class="col-12">
-				<div class="text_section-title">RETAIL STORE OPERATION</div>
+				<h2>RETAIL STORE OPERATION</h2>
 				<ul>
 					<li>OVERALL LOCAL RETAIL ENVIRONMENT CONSULTATION/KNOWLEDGE</li>
 					<li>RELATIONSHIP WITH DEPARTMENT STORES MANAGEMENT AND LANDLORDS.</li>
