@@ -27,7 +27,8 @@
 			font-weight:$semibold;
 			padding-bottom:10px;
 			
-			.text__element-title{
+			//.text__element-title{
+			strong, b{
 				font-size:27px;
 			}
 			
@@ -76,6 +77,13 @@
 			padding-right: 0;
 			padding-left: 0;
 	  	}
+		
+		.img__element{
+			&.video{
+				width:100%; 
+				position:relative;
+			}
+		}
 		
 		.lookbook__element{
 			.lookbook__element-wrapper{
@@ -369,7 +377,8 @@
 		.text__element{
 			font-size:27px;
 
-			.text__element-title{
+			//.text__element-title{
+			strong, b{
 				font-size:45px;
 			}
 		}
