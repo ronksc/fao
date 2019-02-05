@@ -3,7 +3,7 @@
 
 body{
 	font-family: 'Barlow Condensed', sans-serif;
-	line-height:1.1;
+	line-height:1.2;
 	color:#000;
 }
 
@@ -31,7 +31,7 @@ p{
 }
 
 ul{
-	font-family:Lato;
+	//font-family:Lato;
 	padding:0;
 	margin-bottom:2rem;
 	
@@ -73,11 +73,17 @@ ul{
 	outline:none;
 	display:inline-block;
 	margin:10px 0;
+	cursor:pointer;
 
 	&.white{
 		background:#fff;
 		border:1px solid #000;
-		color:#000;		
+		color:#000;
+	}
+	
+	&:hover{
+		background:#b2b2b2;
+		color:#000;
 	}
 }
 
@@ -99,6 +105,11 @@ ul{
 		li{
 			list-style:none;
 			display:inline-block;
+			
+			&:before{
+				content:"";
+				display:none!important;
+			}
 			
 			&:after{
 				font-family: "Font Awesome 5 Pro"; 
@@ -131,5 +142,9 @@ ul{
 		font-size:15px;
 		font-family:Lato;
 		line-height:1.8;
+	}
+	
+	ul{
+		font-family:Lato;
 	}
 }

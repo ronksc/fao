@@ -45,6 +45,29 @@
 		}
 	}
 	
+	.module__img-text{
+		margin-bottom:0;
+		.text__element{
+			margin-top:20px;
+		}
+		
+		.img__element{
+			&.video{
+				width:100%; 
+				position:relative;
+				
+				.video_link{
+					position:absolute; 
+					top:0; 
+					left:0; 
+					width:100%; 
+					height:100%; 
+					z-index:999;
+				}
+			}
+		}
+	}
+	
 	.module__lookbook{
 		background:#000;
 	
@@ -81,13 +104,21 @@
 								list-style:none;	
 								margin-bottom:20px;
 								
+								&:before{
+									content:"";
+									display:none!important;
+								}
+								
 								a{
 									min-width:130px; 
-									background:#B2B2B2; 
+									background:#FFF; 
 									color:#000; 
 									padding:10px;
 									display:inline-block; 
 									
+									&:hover{
+										background:#B2B2B2;
+									}
 								}
 								
 								&:last-child{
@@ -192,6 +223,7 @@
 	
 		.module__instagram-text{
 			font-weight:$semibold;
+			margin-bottom:20px;
 		
 			h3{
 				//font-weight:$semibold;
@@ -213,6 +245,7 @@
 		.module__instagram-gallery{
 			img{
 				width:100%;
+				margin-bottom:20px;
 			}
 		}
 		
@@ -257,7 +290,7 @@
 		
 		.module__newsletter-wrapper{
 			margin:30px 0;
-			border:2px solid #7F7F7F;
+			border:1px solid #7F7F7F;
 			font-size:18px;
 			padding:30px;
 			font-weight:$semibold;
@@ -266,11 +299,26 @@
 				line-height:200%;
 			}
 		
+			::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+			  color: #b3b3b3;
+			  opacity: 1; /* Firefox */
+			}
+			
+			:-ms-input-placeholder { /* Internet Explorer 10-11 */
+			  color: #b3b3b3;
+			}
+			
+			:-ms-input-placeholder { /* Microsoft Edge */
+			  color: #b3b3b3;
+			}
+		
 			input[type="email"]{
 				font-weight:$normal;
 				font-size:15px;
 				border:1px solid #000;
 				padding:10px 15px;
+				
+				
 			}
 			
 			.button{
@@ -282,6 +330,10 @@
 	.module__brand-logo{
 		.logo_row{
 			min-height:100px;
+			
+			img{
+				margin-bottom:40px;
+			}
 		}	
 	}
 	
@@ -296,6 +348,10 @@
 			p{
 				font-family:Lato;
 			}
+			
+			ul{
+				font-family:Lato;
+			}
 		}
 	}
 }
@@ -307,10 +363,10 @@
 @include media-breakpoint-up(md) {
 	.module__img-text, .module__text{
 		.text__element{
-			font-size:30px;
+			font-size:27px;
 
 			.text__element-title{
-				font-size:50px;
+				font-size:45px;
 			}
 		}
 	}
@@ -324,6 +380,7 @@
 							li{
 								display:inline-block;
 								margin-right:10px;
+								
 								
 								a{
 									min-width:100px;
@@ -339,6 +396,22 @@
 			}
 		}
 	}
+	
+	.module__brand-logo{
+		.logo_row{
+			img{
+				margin-bottom:0;
+			}
+		}	
+	}
+	
+	.module__instagram{
+		.module__instagram-gallery{
+			img{
+				margin-bottom:0;
+			}
+		}
+	}
 }
 
 @include media-breakpoint-up(lg) {
@@ -347,8 +420,8 @@
 			.lookbook__element-wrapper{
 				.lookbook_element-table{
 					.lookbook__element-title{
-						font-size:55px; 
-						margin-bottom:100px; 
+						font-size:50px; 
+						margin-bottom:70px; 
 					}
 					.lookbook__element-link{
 						ul{
@@ -356,8 +429,8 @@
 								margin-right:45px;
 								
 								a{
-									min-width:130px; 
-									font-size:21px; 
+									min-width:105px; 
+									font-size:17px; 
 								}
 							}
 						}

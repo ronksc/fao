@@ -15,8 +15,8 @@
 		</div>
 	</div>
 	
-	<div class="row justify-content-md-center">
-		<div class="col-10 press-content">
+	<div class="row">
+		<div class="press-content">
 			<h2>The grant opening for the new CCshop</h2>
 			
 			<div class="date">OCTOBER 25, 2018</div>
