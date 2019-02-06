@@ -251,17 +251,19 @@
 					lookup[location_value[i].id] = location_value[i];
 				}
 				
-				var center = new google.maps.LatLng(lookup[this.value].map_lat, lookup[this.value].map_lng);
-				map.panTo(center);
-				map.setZoom(lookup[this.value].zoom_level);
+				var bounds = new google.maps.LatLngBounds();
 				
 				$('.storelocator__list-content').html('');
 				//var lookup_shop = [];
-				var shop_address = '';
+				var shop_address='', zoom_count=0, zoom_level;
 				for(var j=0; j<marker_value.length; j++){
 					//console.log(marker_value[j].city);
 					
 					if(marker_value[j].city === lookup[this.value].city){
+						zoom_count++;
+						var marker_pos = new google.maps.LatLng(marker_value[j].map_lat, marker_value[j].map_lng);
+						bounds.extend(marker_pos);
+						
 						//lookup_shop.push(marker_value[j]);
 						shop_address +='<div class="storelocator__list-item">';
 							shop_address +='<div class="list-item__title">'+marker_value[j].store_name+'</div>';
@@ -274,8 +276,21 @@
 					}
 				}
 				
-				//console.log(lookup_shop);
+				if(zoom_count === 1){
+					zoom_level = 17;
+				}
+				
 				$('.storelocator__list-content').html(shop_address);
+				
+				map.fitBounds(bounds); //auto-zoom
+				map.panToBounds(bounds); //auto-center
+				
+				var listener = google.maps.event.addListener(map, "idle", function () {
+					if(zoom_level){
+						map.setZoom(zoom_level);
+					}
+					google.maps.event.removeListener(listener);
+				});
 				
 			});	
 		};

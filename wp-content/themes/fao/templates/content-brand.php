@@ -7,17 +7,28 @@
 
 <div class="container">
 	<?php
-		$featured_img_url = get_the_post_thumbnail_url();
-		
-		//echo 'featured_img_url = '.$featured_img_url;
-		
-		if($featured_img_url){
-			echo '<div class="row">';
-				echo '<div class="page_feature_image">';
-					echo '<img src="'.$featured_img_url.'" class="img-fluid"/>';
+			
+		$feature_media = get_field('feature_media');
+			
+		switch($feature_media['media_type']):
+			case 'image':
+				echo '<div class="row">';
+					echo '<div class="page_feature_image">';
+						echo '<img src="'.$feature_media['image']['url'].'" class="img-fluid"/>';
+					echo '</div>';
+				echo '</div>';	
+				break;
+			case 'video':
+				echo '<div class="row">';
+					echo '<div class="page_feature_image video">';
+						echo '<video width="100%" height="100%" autoplay muted loop>';
+							echo '<source src="'.$feature_media['video']['url'].'" type="video/mp4">';
+							echo 'Your browser does not support the video tag.';
+						echo '</video>';
+					echo '</div>';
 				echo '</div>';
-			echo '</div>';
-		}
+				break;		
+		endswitch;
 	?>
 
 	
@@ -76,6 +87,7 @@
 				if ( get_row_layout() == 'text_with_image' ):
 					$content = get_sub_field('content');
 					$image = get_sub_field('image');
+					$image_link = get_sub_field('image_link');
 					$link = get_sub_field('link');
 					$link_target = get_sub_field('link_target');
 					
@@ -87,7 +99,11 @@
 							echo $content;
 						echo '</div>';
 						echo '<div class="img__element">';
-							echo '<a href="'.$link.'" target="'.$link_target.'"><img src="'.$image['url'].'" class="img-fluid"/></a>';
+							if($image_link){
+								echo '<a href="'.$link.'" target="'.$link_target.'"><img src="'.$image['url'].'" class="img-fluid"/></a>';
+							}else{
+								echo '<img src="'.$image['url'].'" class="img-fluid"/>';	
+							}
 						echo '</div>';
 					echo '</div>';
 					

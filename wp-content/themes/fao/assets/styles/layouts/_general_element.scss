@@ -21,6 +21,22 @@
 		}
 	}
 	
+	.page_feature_image{
+		&.video{
+			width:100%; 
+			position:relative;
+			
+			.video_link{
+				position:absolute; 
+				top:0; 
+				left:0; 
+				width:100%; 
+				height:100%; 
+				z-index:999;
+			}
+		}
+	}
+	
 	.module__img-text, .module__text{		
 		.text__element{
 			font-size:15px;
