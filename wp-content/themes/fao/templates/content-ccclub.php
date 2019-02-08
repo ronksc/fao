@@ -21,6 +21,8 @@
 				echo '</div>';
 				break;		
 		endswitch;
+		
+		$apply_now_button = get_field('apply_now_button');
 
 		if( have_rows('page_module') ):
 	
@@ -30,10 +32,14 @@
 				if ( get_row_layout() == 'logo_with_text' ):
 					$image = get_sub_field('image');
 					$content = get_sub_field('content');
+					$apply_now = get_sub_field('apply_now');
 				
 					echo '<div class="row module module__logo_text">';
 						echo '<div class="module__logo_text-image">';
 							echo '<img src="'.$image['url'].'"/>';
+							if($apply_now){
+								echo '<a href="mailto:'.$apply_now_button['email'].'" class="button" style="margin-left:30px;">'.$apply_now_button['button_text'].'</a>';
+							}
 						echo '</div>';
 					
 						echo '<div class="module__logo_text-content">';
@@ -46,5 +52,9 @@
 			endwhile;
 			
 		endif;
+		
+		echo '<div class="row">';
+		echo '<a href="mailto:'.$apply_now_button['email'].'" class="button">'.$apply_now_button['button_text'].'</a>';
+		echo '</div>';
 	?>
 </div>

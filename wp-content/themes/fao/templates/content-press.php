@@ -10,8 +10,10 @@
 ?>
 <script type="text/javascript">
 	var year_value = '<?=$blog_year;?>';
-	var page = 1;
-	var lastpage = false;
+	var press_page = 1;
+	var editorial_page = 1;
+	var press_lastpage = false;
+	var editorial_lastpage = false;
 </script>
 <div class="container">
 	<?php
@@ -40,10 +42,10 @@
 	
 	<div class="row">
 		<div class="press-container">
-			<h3>Explore what FAO is all about.</h3>
+			<h3>PRESS RELEASE</h3>
 			<!--<form class="my-filter" method="GET" action="">-->
 			<?php
-				$years = $wpdb->get_col("SELECT DISTINCT YEAR(post_date) FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' ORDER BY post_date DESC");
+				$years = $wpdb->get_col("SELECT DISTINCT YEAR(post_date) FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' AND category_name = 'press-release' ORDER BY post_date DESC");
 				
 			?>
 			<select id="year_select" class="year_select">
@@ -61,7 +63,7 @@
 			<!--</form>-->
 			
 			<?php 
-			query_posts( 'post_type=post&post_status=publish&posts_per_page=5&paged='. get_query_var('paged').'&year='.$blog_year );
+			query_posts( 'post_type=post&category_name=press-release&post_status=publish&posts_per_page=5&paged='. get_query_var('paged').'&year='.$blog_year );
 			
 			 if (have_posts()) : 
 			 	
@@ -85,6 +87,37 @@
 				// don't display the button if there are not enough posts
 				if (  $wp_query->max_num_pages > 1 )
 					echo '<div class="button white margin-bottom-30 press_loadmore">See more</div>'; // you can use <a> as well
+				
+				wp_reset_query();
+			
+			endif; 
+			
+			//Editorial
+			query_posts( 'post_type=post&category_name=editorial&post_status=publish&posts_per_page=5&paged='. get_query_var('paged').'&year='.$blog_year );
+			
+			 if (have_posts()) : 
+			 	echo '<h3>EDITORIAL</h3>';
+				
+				echo '<div id="editorial_container" class="press-list">';
+				
+				while (have_posts()) : the_post(); ?>
+			
+				
+					<div class="press-list-item">
+						<div class="press-date"><? the_date(); ?></div>
+						<a class="press-title-link" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+					</div>		
+				
+			
+			<?php endwhile; 
+			
+				echo '</div>';
+			
+				//global $wp_query; // you can remove this line if everything works for you
+	 
+				// don't display the button if there are not enough posts
+				if (  $wp_query->max_num_pages > 1 )
+					echo '<div class="button white margin-bottom-30 editorial_loadmore">See more</div>'; // you can use <a> as well
 				
 				wp_reset_query();
 			

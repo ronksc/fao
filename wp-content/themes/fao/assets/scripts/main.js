@@ -21,12 +21,36 @@
         // JavaScript to be fired on all pages
 		
 		function initNavToggle(){
+			$('.brand-toggle>a').click(function(){
+				if($(this).hasClass('opened')){
+					$('.brand-toggle').find('.sub-menu').hide();
+					$(this).removeClass('opened');
+				}else{
+					$('.brand-toggle').find('.sub-menu').show();	
+					$(this).addClass('opened');
+				}
+			});
+			
 			$('.nav_toggle').click(function(){
 				$('.main-menu-wrapper').fadeIn();
 			});
 			
 			$('.btn_close').click(function(){
 				$('.main-menu-wrapper').fadeOut();						   
+			});
+			
+			if($(window).width() <= 768){
+				$('.main-menu-container').css('height',$(window).height());	
+			}else{
+				$('.main-menu-container').css('height','auto');
+			}
+			
+			$(window).resize(function(){
+				if($(window).width() <= 768){
+					$('.main-menu-container').css('height',$(window).height());	
+				}else{
+					$('.main-menu-container').css('height','auto');
+				}							  
 			});
 		}
 		initNavToggle();
@@ -37,7 +61,7 @@
 			var mapCanvas = document.getElementById('map_div');
 			var mapOptions = {
 				center: location,
-				zoom: inital_point.zoom_level,
+				zoom: 17,
 				panControl: false,
 				disableDefaultUI: true,
 				//scrollwheel: false,
@@ -243,56 +267,106 @@
 			map_marker.push(marker);
 		}
 		
-		var area_selector = function(){
-			$('#storelocator_area').change(function(){				
-				var area_value = this.value;
-				var lookup = {};
-				for(var i=0; i<location_value.length; i++){
-					lookup[location_value[i].id] = location_value[i];
-				}
+		var centerByCity = function(cityVal){
+			var lookup = {};
+			for(var i=0; i<location_value.length; i++){
+				lookup[location_value[i].city] = location_value[i];
+			}
+			
+			var bounds = new google.maps.LatLngBounds();
+			
+			$('.storelocator__list-content').html('');
+			var shop_address='', zoom_count=0, zoom_level;
+			for(var j=0; j<marker_value.length; j++){
 				
-				var bounds = new google.maps.LatLngBounds();
-				
-				$('.storelocator__list-content').html('');
-				//var lookup_shop = [];
-				var shop_address='', zoom_count=0, zoom_level;
-				for(var j=0; j<marker_value.length; j++){
-					//console.log(marker_value[j].city);
+				if(marker_value[j].city === lookup[cityVal].city){
+					zoom_count++;
+					var marker_pos = new google.maps.LatLng(marker_value[j].map_lat, marker_value[j].map_lng);
+					bounds.extend(marker_pos);
 					
-					if(marker_value[j].city === lookup[this.value].city){
-						zoom_count++;
-						var marker_pos = new google.maps.LatLng(marker_value[j].map_lat, marker_value[j].map_lng);
-						bounds.extend(marker_pos);
-						
-						//lookup_shop.push(marker_value[j]);
-						shop_address +='<div class="storelocator__list-item">';
-							shop_address +='<div class="list-item__title">'+marker_value[j].store_name+'</div>';
-							shop_address +='<div class="list-item__address">'+marker_value[j].address+'</div>';
-							shop_address +='<div class="list-item__hour">';
-								shop_address +='<div class="list-item__hour-toggle">Opening hours</div>';
-								shop_address +='<div class="list-item__hour-content">'+marker_value[j].hours+'</div>';
-							shop_address +='</div>';
+					shop_address +='<div class="storelocator__list-item">';
+						shop_address +='<div class="list-item__title">'+marker_value[j].store_name+'</div>';
+						shop_address +='<div class="list-item__address">'+marker_value[j].address+'</div>';
+						shop_address +='<div class="list-item__hour">';
+							shop_address +='<div class="list-item__hour-toggle">Opening hours</div>';
+							shop_address +='<div class="list-item__hour-content">'+marker_value[j].hours+'</div>';
 						shop_address +='</div>';
-					}
+					shop_address +='</div>';
 				}
-				
-				if(zoom_count === 1){
-					zoom_level = 17;
+			}
+			
+			if(zoom_count === 1){
+				zoom_level = 17;
+			}
+			
+			$('.storelocator__list-content').html(shop_address);
+			
+			map.fitBounds(bounds); //auto-zoom
+			map.panToBounds(bounds); //auto-center
+			
+			var listener = google.maps.event.addListener(map, "idle", function () {
+				if(zoom_level){
+					map.setZoom(zoom_level);
 				}
-				
-				$('.storelocator__list-content').html(shop_address);
-				
-				map.fitBounds(bounds); //auto-zoom
-				map.panToBounds(bounds); //auto-center
-				
-				var listener = google.maps.event.addListener(map, "idle", function () {
-					if(zoom_level){
-						map.setZoom(zoom_level);
-					}
-					google.maps.event.removeListener(listener);
-				});
-				
+				google.maps.event.removeListener(listener);
+			});
+		};
+		
+		var cityOption = function(countryVal){
+			$('#city_select').html('');
+			
+			var select_city = [];
+			for(i = 0; i< location_value.length; i++){    
+				if(location_value[i].country === countryVal){
+					select_city.push(location_value[i].city);	
+				}
+			}
+			
+			$('#city_select').append(function(){
+				var elem = $('<select id ="city_option">');
+				for (var i = 0; i < select_city.length; i++) {
+					 
+					 elem.append('<option value="' + select_city[i] + '">' + select_city[i] + '</option>');
+				}
+				return elem;	 
 			});	
+		};
+		
+		var area_selector = function(){
+			var unique_country = [];
+			for(i = 0; i< location_value.length; i++){    
+				if(unique_country.indexOf(location_value[i].country) === -1){
+					unique_country.push(location_value[i].country);        
+				}        
+			}
+			
+			//console.log(unique_country);
+			
+			$('#country_select').append(function(){
+				var elem = $('<select id ="country_option">');
+				for (var i = 0; i < unique_country.length; i++) {
+					 
+					 elem.append('<option value="' + unique_country[i] + '">' + unique_country[i] + '</option>');
+				}
+				return elem;
+			});
+			
+			$('#country_option').change(function(){
+				console.log($(this).val());
+				cityOption($(this).val());
+			});
+			
+			//first country 's city
+			cityOption(unique_country[0]);
+			
+			centerByCity($('#city_option').val());
+			
+			$('#map_search').click(function(){
+				var selected_country = $('#country_option').val();
+				var selected_city = $('#city_option').val();
+				
+				centerByCity(selected_city);
+			});
 		};
 		
 		
@@ -340,33 +414,67 @@
 		};
 		year_select();
 		
-		function load_news(page){		  
+		function load_news(page, category){
 			var ajaxurl = '/wp-admin/admin-ajax.php';
-			var data = {
-			  page: page ? page:1,
-			  per_page : 5,
-			  yearData: year_value,
-			  action: "load-press"
-			};
 			
-			$.post(ajaxurl, data, function(response) {
-			  //$('#news_container').html('');
-			  $response = $(response);
-			  $response.hide();
-			  $("#press_container").append($response);
-			  
-			  $response.fadeIn(500);
-			  
-			  if(lastpage){
-				$('.press_loadmore').hide();  
-			  }
-			});
+			switch(category){
+				case 'press-release':
+					var data = {
+					  page: press_page ? press_page:1,
+					  per_page : 5,
+					  yearData: year_value,
+					  categoryData: category, 
+					  action: "load-press"
+					};
+					
+					$.post(ajaxurl, data, function(response) {
+					  //$('#news_container').html('');
+					  $response = $(response);
+					  $response.hide();
+					  $("#press_container").append($response);
+					  
+					  $response.fadeIn(500);
+					  
+					  if(press_lastpage){
+						$('.press_loadmore').hide();  
+					  }
+					});
+					break;
+				case 'editorial':
+					var data = {
+					  page: editorial_page ? editorial_page:1,
+					  per_page : 5,
+					  yearData: year_value,
+					  categoryData: category, 
+					  action: "load-press"
+					};
+					
+					$.post(ajaxurl, data, function(response) {
+					  //$('#news_container').html('');
+					  $response = $(response);
+					  $response.hide();
+					  $("#editorial_container").append($response);
+					  
+					  $response.fadeIn(500);
+					  
+					  if(editorial_lastpage){
+						$('.editorial_loadmore').hide();  
+					  }
+					});
+					break;	
+			}
 	  	}
 		
 		$('.press_loadmore').click(function(){
-			page++;
+			press_page++;
 			
-			load_news(page);
+			load_news(press_page, 'press-release');
+		});
+		
+		$('.editorial_loadmore').click(function(){
+			editorial_page++;
+			
+			load_news(editorial_page, 'editorial');
 		});
       }	
 	}

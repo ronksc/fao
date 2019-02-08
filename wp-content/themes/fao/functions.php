@@ -15,7 +15,9 @@ $sage_includes = [
   'lib/setup.php',     // Theme setup
   'lib/titles.php',    // Page titles
   'lib/wrapper.php',   // Theme wrapper class
-  'lib/customizer.php' // Theme customizer
+  'lib/customizer.php', // Theme customizer
+  'lib/custom-post-type.php', // Custom post type
+  'lib/taxonomies.php', // Taxonomies
 ];
 
 foreach ($sage_includes as $file) {
@@ -303,6 +305,7 @@ function load_press(){
 	//$typeData = (isset($_POST['typeData'])) ? $_POST['typeData'] : "";
 	//$type_uncheck_all = (isset($_POST['type_uncheck_all'])) ? $_POST['type_uncheck_all'] : "";
 	$yearData = (isset($_POST['yearData'])) ? $_POST['yearData'] : "";
+	$categoryData = (isset($_POST['categoryData'])) ? $_POST['categoryData'] : "press-release";
 	//$tagData = (isset($_POST['tagData'])) ? $_POST['tagData'] : "";
 	//$tag_uncheck_all = (isset($_POST['tag_uncheck_all'])) ? $_POST['tag_uncheck_all'] : "";
 	$page = (isset($_POST['page'])) ? sanitize_text_field($_POST['page']) : 1;
@@ -321,7 +324,8 @@ function load_press(){
 		'order' => 'DESC',
 		'orderby' => 'date',
 		'posts_per_page'    => $per_page,
-        'offset'            => $start
+        'offset'            => $start,
+		'category_name' => $categoryData
 	);
 	
 	if($yearData!=""){
@@ -357,15 +361,30 @@ function load_press(){
    
    //echo 'no_of_paginations='.$no_of_paginations;
    
-   if($no_of_paginations > 1){ ?>
+   if($no_of_paginations > 1 && $categoryData == 'press-release'){ ?>
    
    	<script>
-		lastpage = true;
+		press_lastpage = true;
 	</script>
    	
    <?php 
    
+   }else if($no_of_paginations > 1 && $categoryData == 'editorial'){ ?>
+   
+   	<script>
+		editorial_lastpage = true;
+	</script>
+   	
+   <?php 
+   		
    }
    
    exit();
 }
+
+function my_acf_init() {
+	
+	acf_update_setting('google_api_key', 'AIzaSyAqR02hkIwAolyKNQsUCXuOZtlAqCAe3K0');
+}
+
+add_action('acf/init', 'my_acf_init');

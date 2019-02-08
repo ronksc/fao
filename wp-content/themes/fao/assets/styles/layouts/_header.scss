@@ -90,6 +90,11 @@
 			font-size: 35px;
 		}
 		
+		.main-menu-container{
+			overflow-y: scroll; 
+			overflow-x: hidden;
+		}
+		
 		.logo_container{
 			margin-top:20px; 
 			margin-bottom:70px;
@@ -115,6 +120,29 @@
 					&:before{
 						display:none;
 					}
+					
+					&.brand-toggle{
+						& > a{
+							display:block;
+							position:relative;
+							
+							&:after{
+								content:'\f067';
+								font-family:'Font Awesome 5 Pro';
+								position:absolute;
+								top:50%;
+								right:10px;
+								font-size: 10px;
+							    transform: translateY(-50%);
+							}
+							
+							&.opened{
+								&:after{
+									content:'\f068';
+								}
+							}
+						}
+					}
 				
 					a{
 						color:#CBCBCB;
@@ -122,6 +150,12 @@
 					
 					ul.sub-menu{
 						border:0;
+						display:none;
+						
+						&.show{
+							display:block;
+						}
+						
 						li{
 							border:0;
 						}
@@ -144,6 +178,13 @@
 			img{
 				max-width:324px;
 			}
+		}
+		
+	}
+	
+	.main-menu-wrapper{
+		.main-menu-container{
+			overflow:auto;
 		}
 	}
 }

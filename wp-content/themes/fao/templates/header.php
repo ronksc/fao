@@ -37,29 +37,32 @@
 </header>
 <div class="main-menu-wrapper">
 	<a href="javascript:;" class="btn_close"><i class="fal fa-times"></i></a>
-
-	<div class="row justify-content-md-center">
+	<div class="row justify-content-md-center ">
 		<div class="col-md-4 text-center">
-			<div class="logo_container">
-				<img src="<?=get_stylesheet_directory_uri()?>/assets/images/fao-logo-white.svg" />
-			</div>
-			<nav class="main-menu">
-				<div class="row">
-				<?php
-					if (has_nav_menu('primary_navigation')) :
-						echo '<div class="col-6">';
-						wp_nav_menu(array('depth' => 2, 'theme_location' => 'primary_navigation'/*, 'menu_class' => 'nav navbar-nav'*/));
-						echo '</div>';
-					endif;
-					
-					if (has_nav_menu('brand-menu')) :
-						echo '<div class="col-6">';
-						wp_nav_menu(array('depth' => 2, 'theme_location' => 'brand-menu', 'menu_class' => 'nav navbar-nav'));
-						echo '</div>';
-					endif;
-				?>
+			<div class="main-menu-container">
+				<div>
+					<div class="logo_container">
+						<img src="<?=get_stylesheet_directory_uri()?>/assets/images/fao-logo-white.svg" />
+					</div>
+					<nav class="main-menu">
+						<div class="row no-gutters">
+						<?php
+							if (has_nav_menu('primary_navigation')) :
+								echo '<div class="col-6">';
+								wp_nav_menu(array('depth' => 2, 'theme_location' => 'primary_navigation'/*, 'menu_class' => 'nav navbar-nav'*/));
+								echo '</div>';
+							endif;
+							
+							if (has_nav_menu('brand-menu')) :
+								echo '<div class="col-6">';
+								wp_nav_menu(array('depth' => 2, 'theme_location' => 'brand-menu', 'menu_class' => 'nav navbar-nav'));
+								echo '</div>';
+							endif;
+						?>
+						</div>
+					</nav>
 				</div>
-			</nav>
+			</div>
 		</div>
 	</div>
 </div>
