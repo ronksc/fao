@@ -45,11 +45,13 @@
 			<h3>PRESS RELEASE</h3>
 			<!--<form class="my-filter" method="GET" action="">-->
 			<?php
-				$years = $wpdb->get_col("SELECT DISTINCT YEAR(post_date) FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' AND category_name = 'press-release' ORDER BY post_date DESC");
+				//$years = $wpdb->get_col("SELECT DISTINCT YEAR(post_date) FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' AND category_name = 'press-release' ORDER BY post_date DESC");
+				
+				$years = $wpdb->get_col("SELECT DISTINCT YEAR(post_date) FROM $wpdb->posts LEFT JOIN  $wpdb->term_relationships  as t ON ID = t.object_id WHERE post_status = 'publish' AND post_type = 'post' AND t.term_taxonomy_id = 5 ORDER BY post_date DESC");
 				
 			?>
 			<select id="year_select" class="year_select">
-				<option value=""> Year published </option>
+				<option value="<?php echo $full_uri ?>"> All Year </option>
 				<?php foreach($years as $year) : 
 					if($blog_year == $year){
 						$selected = 'selected="selected"';
@@ -73,7 +75,7 @@
 			
 				
 					<div class="press-list-item">
-						<div class="press-date"><? the_date(); ?></div>
+						<div class="press-date"><?php echo get_the_date('F j, Y'); ?></div>
 						<a class="press-title-link" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 					</div>		
 				
@@ -104,7 +106,7 @@
 			
 				
 					<div class="press-list-item">
-						<div class="press-date"><? the_date(); ?></div>
+						<div class="press-date"><?php echo get_the_date('F j, Y'); ?></div>
 						<a class="press-title-link" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 					</div>		
 				

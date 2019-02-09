@@ -1,12 +1,12 @@
 <header class="banner" role="banner">
   <div class="container header-container">
   	<div class="row">
-		<div class="col-7 col-md-5">
+		<div class="col-6 col-md-5">
 			<a class="brand" href="<?= esc_url(home_url('/')); ?>">
 				<img src="<?=get_stylesheet_directory_uri()?>/assets/images/fao-logo.svg" class="img-fluid"/><?php //bloginfo('name'); ?>
 			</a>	
 		</div>
-		<div class="col-5 col-md-7 text-right">
+		<div class="col-6 col-md-7 text-right">
 			
 			<div class="navbar-header">
 			  <a href="javascript:;" class="nav_toggle"><i class="fas fa-bars"></i></a>

@@ -52,72 +52,87 @@
 		<?php endwhile; ?>
 	</div>
 	
-	<div class="row module module__instagram">
-		<div class="blackbar before"></div>
-		<div class="col-12 col-md-3 module__instagram-text">
-			
-			<h3><i class="fab fa-instagram"></i><br />CONNECT CCSHOP ON INSTAGRAM</h3>
-			<p>Get featured by tagging #eqiqpure</p>
-			<a href="#">View Gallery</a>
-		</div>
-		<div class="col-12 col-md-9">
-			<div class="row module__instagram-gallery">
-				<div class="col-md-4"><a data-fancybox data-src="#hidden-content1" href="javascript:;"><img src="<?=get_stylesheet_directory_uri()?>/assets/images/img_ig_1.jpg" class="img-fluid" /></a></div>
-				<div class="instagram-popup" id="hidden-content1">
-					<div class="row">
-						<div class="col-md-6">
-							<a href="https://www.instagram.com/p/BmICEZ1hn9i/?taken-by=eqiq_pure" target="_blank"><img src="<?=get_stylesheet_directory_uri()?>/assets/images/eqiq_pure_FW18_website_ig_01.jpg" class="img-fluid" /></a>
-						</div>
-						<div class="col-md-6">
-							<p class="p1">eqiq_purePlaid fever .</p>
-							<p><span><a href="https://www.instagram.com/p/BmICEZ1hn9i/?taken-by=eqiq_pure" target="_blank" class="instaname">@eqiq_pure</a></span> // <span class="fdate">17/08/2018</span></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4"><a data-fancybox data-src="#hidden-content2" href="javascript:;"><img src="<?=get_stylesheet_directory_uri()?>/assets/images/img_ig_2.jpg" class="img-fluid" /></a></div>
-				<div class="instagram-popup" id="hidden-content2">
-					<div class="row">
-						<div class="col-md-6">
-							<a href="https://www.instagram.com/p/BmICEZ1hn9i/?taken-by=eqiq_pure" target="_blank"><img src="<?=get_stylesheet_directory_uri()?>/assets/images/eqiq_pure_FW18_website_ig_01.jpg" class="img-fluid" /></a>
-						</div>
-						<div class="col-md-6">
-							<p class="p1">eqiq_purePlaid fever .</p>
-							<p><span><a href="https://www.instagram.com/p/BmICEZ1hn9i/?taken-by=eqiq_pure" target="_blank" class="instaname">@eqiq_pure</a></span> // <span class="fdate">17/08/2018</span></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-4"><a data-fancybox data-src="#hidden-content3" href="javascript:;"><img src="<?=get_stylesheet_directory_uri()?>/assets/images/img_ig_3.jpg" class="img-fluid" /></a></div>
-				<div class="instagram-popup" id="hidden-content3">
-					<div class="row">
-						<div class="col-md-6">
-							<a href="https://www.instagram.com/p/BmICEZ1hn9i/?taken-by=eqiq_pure" target="_blank"><img src="<?=get_stylesheet_directory_uri()?>/assets/images/eqiq_pure_FW18_website_ig_01.jpg" class="img-fluid" /></a>
-						</div>
-						<div class="col-md-6">
-							<p class="p1">eqiq_purePlaid fever .</p>
-							<p><span><a href="https://www.instagram.com/p/BmICEZ1hn9i/?taken-by=eqiq_pure" target="_blank" class="instaname">@eqiq_pure</a></span> // <span class="fdate">17/08/2018</span></p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="module__instagram-social text-right">
-				<ul>
-					<li>Follow eqiqpure!</li>
-					<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-					<li><a href="#"><i class="fab fa-instagram"></i></a></li>
-					<li><a href="#"><i class="fab fa-weixin"></i></a></li>
-				</ul>
-			</div>
-		</div>
-		<div class="blackbar after"></div>
-	</div>
+	<?php
+		$press_page_id = 30;
+		
+		if( have_rows('global_module', $press_page_id) ):
 	
-	<div class="row module module__newsletter justify-content-md-center">
-		<div class="col-10 module__newsletter-wrapper">
-			<div class="row">
-				<div class="col-12 col-md-4 col-lg-5 newsletter-title">Enter Your e-mail to subscribe to Our newsletters</div>
-				<div class="col-12 col-md-5 col-lg-5"><input type="email" placeholder="your email address" /></div>
-				<div class="col-12 col-md-3 col-lg-2"><input class="button" type="submit" value="Submit" /></div>
-			</div>
-		</div>
-	</div>
+			// loop through the rows of data
+			while ( have_rows('global_module', $press_page_id) ) : the_row();
+				
+				if ( get_row_layout() == 'instagram' ):
+					
+					$title = get_sub_field('title');
+					$content = get_sub_field('content');
+					$gallery = get_sub_field('gallery');
+					
+					echo '<div class="row module module__instagram">';
+						echo '<div class="blackbar before"></div>';
+						echo '<div class="col-12 col-md-3 module__instagram-text">';
+							echo '<h3><i class="fab fa-instagram"></i><br />'.$title.'</h3>';
+							echo $content;
+						echo '</div>';
+						echo '<div class="col-12 col-md-9">';
+							echo '<div class="row module__instagram-gallery">';
+								if(sizeof($gallery['image']) > 0):
+									foreach( $gallery['image'] as $key => $image ):										
+										echo '<div class="col-md-4"><a data-fancybox data-src="#hidden-content'.$key.'" href="javascript:;"><img src="'.$image['image']['url'].'" class="img-fluid" /></a></div>';
+										echo '<div class="instagram-popup" id="hidden-content'.$key.'">';
+											echo '<div class="row">';
+												echo '<div class="col-md-6">';
+													echo '<a href="'.$image['link'].'" target="_blank"><img src="'.$image['image']['url'].'" class="img-fluid" /></a>';
+												echo '</div>';
+												echo '<div class="col-md-6">';
+													echo $image['popup_content'];
+												echo '</div>';
+											echo '</div>';
+										echo '</div>';
+									endforeach;
+								endif;
+							echo '</div>';
+							echo '<div class="module__instagram-social text-right">';
+								echo '<ul>';
+									echo '<li>'.$gallery['follow_text'].'</li>';
+									if(sizeof($gallery['social_media']) > 0):
+										foreach( $gallery['social_media'] as $social_media ):
+											switch($social_media['type']):
+												case 'instagram':
+													echo '<li><a href="'.$social_media['link'].'" target="_blank"><i class="fab fa-instagram"></i></a></li>';
+													break;
+												case 'facebook':
+													echo '<li><a href="'.$social_media['link'].'" target="_blank"><i class="fab fa-facebook-f"></i></a></li>';
+													break;
+												case 'weixin':
+													echo '<li><a href="'.$social_media['link'].'" target="_blank"><i class="fab fa-weixin"></i></a></li>';
+													break;
+											endswitch;
+										endforeach;
+									endif;
+								echo '</ul>';
+							echo '</div>';
+						echo '</div>';
+						echo '<div class="blackbar after"></div>';
+					echo '</div>';
+					
+				endif;
+				
+				if ( get_row_layout() == 'newsletter' ):
+					
+					echo '<div class="row module module__newsletter justify-content-md-center">';
+						echo '<div class="col-10 module__newsletter-wrapper">';
+							echo '<div class="row">';
+								echo '<div class="col-12 col-md-4 col-lg-5 newsletter-title">Enter Your e-mail to subscribe to Our newsletters</div>';
+								echo '<div class="col-12 col-md-5 col-lg-5"><input type="email" placeholder="your email address" /></div>';
+								echo '<div class="col-12 col-md-3 col-lg-2"><input class="button" type="submit" value="Submit" /></div>';
+							echo '</div>';
+						echo '</div>';
+					echo '</div>';
+					
+				endif;
+			
+			endwhile;
+			
+		endif;	
+	
+	?>
 </div>

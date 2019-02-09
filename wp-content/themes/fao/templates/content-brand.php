@@ -181,7 +181,7 @@
 					$brand = get_sub_field('brand');
 					$location_value = array();
 					
-					if(count($countries) > 1){
+					/*if(count($countries) > 1){
 						foreach($countries as $country):
 							$country_term = get_term_by('term_id', $country, $taxonomyName);
 							$cities = get_terms( $taxonomyName, array( 'parent' => $country, 'orderby' => 'term_id', 'hide_empty' => false ) );
@@ -207,18 +207,45 @@
 							$temp = array('country'=>$country_term->name, 'city'=>$country_term->name);
 							array_push($location_value, $temp);
 						}
+					}*/
+					
+					$tax_query = [];
+					if(count($countries) > 1){
+						$tax_country_query = array('relation'=>'OR');
+						foreach($countries as $country){
+							$temp_query = array(
+								'relation' => 'AND',
+								array(
+									'taxonomy' => 'store_category', 
+									'field' => 'term_id', 
+									'terms' => $country
+								),
+								array(
+									'taxonomy' => 'store_category', 
+									'field' => 'term_id', 
+									'terms' => $brand
+								)							
+							);
+							array_push($tax_country_query, $temp_query);
+						}
+						$tax_query = array('relation' => 'OR', $tax_country_query);
+					}else{
+						$tax_query = array(
+							'relation' => 'AND',
+							array(
+								'taxonomy' => 'store_category', 
+								'field' => 'term_id', 
+								'terms' => $countries[0]								
+							),
+							array(
+								'taxonomy' => 'store_category', 
+								'field' => 'term_id', 
+								'terms' => $brand							
+							)
+						);
 					}
 					
-					$tax_query = array('relation' => 'OR');
-					if(count($countries) > 1){
-						foreach($countries as $country){
-							$temp_query = array('taxonomy' => 'store_category', 'field' => 'term_id', 'terms' => array($country, $brand), 'operator' => 'IN');
-							array_push($tax_query, $temp_query);
-						}
-						
-					}else{
-						$tax_query = array('taxonomy' => 'store_category', 'field' => 'term_id', 'terms' => array($countries[0], $brand), 'operator' => 'IN');
-					}
+					//print_r($tax_query);
 					
 					$args = array(
 						'post_type' => 'store',
@@ -245,8 +272,16 @@
 							$brand = get_field('brand', $marker_post_id); 
 							
 							$marker_temp = array('map_lat'=>$store_location['lat'], 'map_lng'=>$store_location['lng'], 'country'=>$country->name, 'city'=>$city->name, 'store_name'=>$store_name, 'address'=>$address, 'hours'=>$opening_hour);
-							
 							array_push($marker_value, $marker_temp);
+							
+							
+							$location_temp = array('country'=>$country->name, 'city'=>$city->name);
+							
+							$location_in_array = in_array($city->name, array_column($location_value, 'city'));
+							
+							if(!$location_in_array){
+								array_push($location_value, $location_temp);
+							}
 						}
 						wp_reset_postdata();
 					}
@@ -257,12 +292,12 @@
 						
 						echo '<div class="col-12">';
 							echo '<div class="row storelocator__map-row">';
-								echo '<div class="col-6">';
+								echo '<div class="col-12 col-md-6">';
 									echo '<div class="storelocator__map-wrapper">';
 										echo '<div id="map_div"></div>';
 									echo '</div>';
 								echo '</div>';
-								echo '<div class="col-6">';
+								echo '<div class="col-12 col-md-6">';
 									echo '<div class="storelocator__filter-element">';
 										echo '<div class="storelocator__filter-title">Country</div>';
 										echo '<div class="storelocator__filter-input" id="country_select">';
@@ -335,7 +370,7 @@
 							echo '<div class="row module__instagram-gallery">';
 								if(sizeof($gallery['image']) > 0):
 									foreach( $gallery['image'] as $key => $image ):										
-										echo '<div class="col-md-4"><a data-fancybox data-src="#hidden-content'.$key.'" href="javascript:;"><img src="'.$image['image']['url'].'" class="img-fluid" /></a></div>';
+										echo '<div class="col-4"><a data-fancybox data-src="#hidden-content'.$key.'" href="javascript:;"><img src="'.$image['image']['url'].'" class="img-fluid" /></a></div>';
 										echo '<div class="instagram-popup" id="hidden-content'.$key.'">';
 											echo '<div class="row">';
 												echo '<div class="col-md-6">';
@@ -349,7 +384,7 @@
 									endforeach;
 								endif;
 							echo '</div>';
-							echo '<div class="module__instagram-social text-right">';
+							echo '<div class="module__instagram-social">';
 								echo '<ul>';
 									echo '<li>'.$gallery['follow_text'].'</li>';
 									if(sizeof($gallery['social_media']) > 0):
