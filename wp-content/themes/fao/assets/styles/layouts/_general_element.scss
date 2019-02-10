@@ -353,6 +353,29 @@
 				margin-bottom:10px;
 			}
 			
+			.EMAIL-label{
+				//width:60%;
+				margin-bottom:0!important;
+			}
+			
+			.yikes-easy-mc-submit-button{
+				//width: 30%;
+				display: inline-block;
+				margin: 0 !important;
+				background:#000;
+				color:#FFF;
+				font-size:15px;
+				font-family:Lato;
+				font-weight:400;
+				padding:10px 30px;
+				border:none;
+				outline:none;
+				display:inline-block;
+				margin:10px 0;
+			    border-radius: 0;
+				cursor:pointer;
+			}
+			
 			.button{
 				margin:0;
 			}
@@ -465,6 +488,15 @@
 			
 			input[type="email"]{
 				margin-bottom:0;
+			}
+			
+			.EMAIL-label{
+				width:60%;
+			}
+			
+			.yikes-easy-mc-submit-button{
+				width: 30%;
+				margin: 0 0 0 10px !important;
 			}
 		}
 	}
