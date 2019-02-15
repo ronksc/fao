@@ -98,10 +98,16 @@
 					$image_link = get_sub_field('image_link');
 					$link = get_sub_field('link');
 					$link_target = get_sub_field('link_target');
+					$blackbar_margin = get_sub_field('blackbar_margin');
 					
+					if($blackbar_margin){
+						$blackbar_margin_class = "no-margin";
+					}else{
+						$blackbar_margin_class = "";
+					}
 				
-					echo '<div class="row module module__img-text margin-bottom-30">';
-						echo '<div class="blackbar before"></div>';
+					echo '<div class="row module module__img-text margin-bottom-20">';
+						echo '<div class="blackbar before '.$blackbar_margin_class.'"></div>';
 						
 						echo '<div class="text__element">';
 							echo $content;
