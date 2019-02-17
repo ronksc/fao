@@ -98,7 +98,7 @@
 	<div class="row module module__newsletter justify-content-md-center">
 		<div class="col-10 module__newsletter-wrapper">
 			<div class="row">
-				<div class="col-12 col-md-4 col-lg-5 newsletter-title">Enter Your e-mail to subscribe to Our newsletters</div>
+				<div class="col-12 col-md-4 col-lg-5 newsletter-title">Enter your e-mail to subscribe to our newsletters</div>
 				<div class="col-12 col-md-5 col-lg-5"><input type="email" placeholder="your email address" /></div>
 				<div class="col-12 col-md-3 col-lg-2"><input class="button" type="submit" value="Submit" /></div>
 			</div>

@@ -13,7 +13,7 @@
 			case 'video':
 				echo '<div class="row">';
 					echo '<div class="page_feature_image video">';
-						echo '<video width="100%" height="100%" autoplay muted loop>';
+						echo '<video width="100%" height="100%" poster="'.$feature_media['video_poster_image']['url'].'" autoplay muted loop>';
 							echo '<source src="'.$feature_media['video']['url'].'" type="video/mp4">';
 							echo 'Your browser does not support the video tag.';
 						echo '</video>';
@@ -23,12 +23,12 @@
 		endswitch;
 	?>
 	<div class="row contact-content">
-		<div class="col-md-5 address-container">			
+		<div class="col-md-5 address-container no-padding">			
 			<?php
 				the_content();
 			?>
 		</div>
-		<div class="col-md-7">
+		<div class="col-md-7 no-padding">
 			<h3>LEAVE US A MESSAGE</h3>
 			<?php
 				echo do_shortcode('[contact-form-7 id="58" title="Contact"]');

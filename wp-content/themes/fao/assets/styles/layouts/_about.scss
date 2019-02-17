@@ -2,14 +2,11 @@
 	.page-template-template-about{
 		.text__element{
 			margin-top:30px;
-			//font-size:30px;
 			font-size:15px;
 			font-weight:$semibold;
 			padding-bottom:10px;
 		
-			//.text__element-title{
 			strong, b{
-				//font-size:50px;
 				font-size:27px;
 			}
 		}
@@ -18,9 +15,7 @@
 			margin-bottom:80px;
 			width:100%;
 		
-			//.text_section-title{
 			h2{
-				//font-size:50px;
 				font-size:27px;
 				font-weight:$semibold;
 				
@@ -68,21 +63,21 @@
 @include media-breakpoint-up(md) {
 	.page-template-template-about{
 		.text__element{
-			font-size:30px;
+			font-size:27px;
 			
 			strong, b{
-				font-size:50px;
+				font-size:45px;
 			}
 		}
 		
 		.about__text-section{
 			h2{
-				font-size:50px;
+				font-size:45px;
 			}
 			
 			ul{
 				li{
-					font-size:30px;
+					font-size:27px;
 				}
 			}
 		}

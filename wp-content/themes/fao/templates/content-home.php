@@ -24,7 +24,7 @@
 							break;
 						case 'video':
 							echo '<div class="img__element video">';
-								echo '<video width="100%" height="100%" autoplay muted loop>';
+								echo '<video width="100%" height="100%" poster="'.$media_element['video_poster_image']['url'].'" autoplay muted loop>';
 									echo '<source src="'.$media_element['video']['url'].'" type="video/mp4">';
 									echo 'Your browser does not support the video tag.';
 								echo '</video>';

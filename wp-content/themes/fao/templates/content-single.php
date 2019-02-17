@@ -1,9 +1,36 @@
+<?php
+	$press_page_id = 30;
+	
+	$hide_feature_image = get_field('hide_feature_image');
+?>
+
 <div class="container">
-	<div class="row">
-		<div class="page_feature_image">
-			<img src="<?=get_stylesheet_directory_uri()?>/assets/images/header-press.jpg" class="img-fluid"/>
-		</div>
-	</div>
+	<?php
+		if(!$hide_feature_image){
+		
+			$feature_media = get_field('feature_media', $press_page_id);
+			
+			switch($feature_media['media_type']):
+				case 'image':
+					echo '<div class="row">';
+						echo '<div class="page_feature_image">';
+							echo '<img src="'.$feature_media['image']['url'].'" class="img-fluid"/>';
+						echo '</div>';
+					echo '</div>';	
+					break;
+				case 'video':
+					echo '<div class="row">';
+						echo '<div class="page_feature_image video">';
+							echo '<video width="100%" height="100%" poster="'.$feature_media['video_poster_image']['url'].'" autoplay muted loop>';
+								echo '<source src="'.$feature_media['video']['url'].'" type="video/mp4">';
+								echo 'Your browser does not support the video tag.';
+							echo '</video>';
+						echo '</div>';
+					echo '</div>';
+					break;		
+			endswitch;
+		}
+	?>
 	
 	<div class="row">
 		<div class="breadcumb">
@@ -53,7 +80,7 @@
 	</div>
 	
 	<?php
-		$press_page_id = 30;
+		
 		
 		if( have_rows('global_module', $press_page_id) ):
 	
@@ -104,6 +131,9 @@
 													break;
 												case 'weixin':
 													echo '<li><a href="'.$social_media['link'].'" target="_blank"><i class="fab fa-weixin"></i></a></li>';
+													break;
+												case 'weibo':
+													echo '<li><a href="'.$social_media['link'].'" target="_blank"><i class="fab fa-weibo"></i></a></li>';
 													break;
 											endswitch;
 										endforeach;

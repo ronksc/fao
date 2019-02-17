@@ -6,6 +6,7 @@ body{
 	line-height:1.2;
 	color:#000;
 	background:#dcdbdb;
+	font-size:15px;
 }
 
 a{
@@ -98,10 +99,16 @@ ul{
 
 .main{
 	background:#fff;
+	
+	img{
+		//width:100%;
+		height:auto;
+		max-width:100%;
+	}
 }
 
 .breadcumb{
-	padding:20px 0 20px 20px;
+	padding:20px 0;
 
 	ul{
 		padding:0;
@@ -152,4 +159,8 @@ ul{
 	ul{
 		font-family:Lato;
 	}
+}
+
+.press-content{
+	font-family:Lato;
 }

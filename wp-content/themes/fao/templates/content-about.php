@@ -13,7 +13,7 @@
 			case 'video':
 				echo '<div class="row">';
 					echo '<div class="page_feature_image video">';
-						echo '<video width="100%" height="100%" autoplay muted loop>';
+						echo '<video width="100%" height="100%" poster="'.$feature_media['video_poster_image']['url'].'" autoplay muted loop>';
 							echo '<source src="'.$feature_media['video']['url'].'" type="video/mp4">';
 							echo 'Your browser does not support the video tag.';
 						echo '</video>';
@@ -23,13 +23,15 @@
 		endswitch;
 	?>
 	
-	<div class="row about-content">
-		<div class="text__element">
-			<?php
-				the_content();
-			?>
-		</div>
+	<div class="row">
 		
+		<div class="row about-content">
+			<div class="text__element col-12">
+				<?php
+					the_content();
+				?>
+			</div>
+		</div>
 		<?php
 	
 		if( have_rows('page_module') ):
@@ -41,8 +43,8 @@
 					$content = get_sub_field('content');
 				
 				
-					echo '<div class="row about__text-section">';
-						echo '<div class="col-12">';
+					echo '<div class="row about__text-section no-gutters">';
+						echo '<div class="col-12 ">';
 							echo $content;
 						echo '</div>';
 					echo '</div>';

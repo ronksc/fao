@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="general-content">
+	<div class="general-content col-12">
 		<?php the_content(); ?>
 	</div>
 </div>

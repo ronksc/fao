@@ -30,7 +30,7 @@
 			case 'video':
 				echo '<div class="row">';
 					echo '<div class="page_feature_image video">';
-						echo '<video width="100%" height="100%" autoplay muted loop>';
+						echo '<video width="100%" height="100%" poster="'.$feature_media['video_poster_image']['url'].'" autoplay muted loop>';
 							echo '<source src="'.$feature_media['video']['url'].'" type="video/mp4">';
 							echo 'Your browser does not support the video tag.';
 						echo '</video>';
@@ -181,6 +181,9 @@
 												case 'weixin':
 													echo '<li><a href="'.$social_media['link'].'" target="_blank"><i class="fab fa-weixin"></i></a></li>';
 													break;
+												case 'weibo':
+													echo '<li><a href="'.$social_media['link'].'" target="_blank"><i class="fab fa-weibo"></i></a></li>';
+													break;
 											endswitch;
 										endforeach;
 									endif;
@@ -199,7 +202,7 @@
 					echo '<div class="row module module__newsletter justify-content-md-center">';
 						echo '<div class="col-10 module__newsletter-wrapper">';
 							echo '<div class="row">';
-								echo '<div class="col-12 col-md-4 col-lg-5 newsletter-title">Enter Your e-mail to subscribe to Our newsletters</div>';
+								echo '<div class="col-12 col-md-4 col-lg-5 newsletter-title">Enter your e-mail to subscribe to our newsletters</div>';
 								echo '<div class="col-12 col-md-8 col-lg-7">';
 									echo do_shortcode($form_shortcode);
 								echo '</div>';
