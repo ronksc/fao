@@ -12,13 +12,13 @@
 			  <a href="javascript:;" class="nav_toggle"><i class="fas fa-bars"></i></a>
 			  <a class="navbar-brand" href="<?php echo esc_url(home_url('/')); ?>" style="display:none;"><?php bloginfo('name'); ?></a>
 			</div>
-			<div class="lang">
+			<!--<div class="lang">
 				<select>
 					<option>ENG</option>
 					<option>繁</option>
 					<option>簡</option>
 				</select>
-			</div>
+			</div>-->
 		</div>
     
     </div>
