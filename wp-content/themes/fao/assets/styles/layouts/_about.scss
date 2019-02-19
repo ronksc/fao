@@ -6,7 +6,8 @@
 			font-weight:$semibold;
 			padding-bottom:10px;
 		
-			.text__element-title{
+			//.text__element-title{
+			strong, b{
 				font-size:50px;
 			}
 		}
@@ -14,7 +15,8 @@
 		.about__text-section{
 			margin-bottom:80px;
 		
-			.text_section-title{
+			//.text_section-title{
+			h2{
 				font-size:50px;
 				font-weight:$semibold;
 				
@@ -29,7 +31,7 @@
 			}
 			
 			ul{
-				padding:0;
+				padding:0 0 0 40px;
 				margin:0;
 				li{
 					list-style:none;
@@ -38,10 +40,12 @@
 					font-weight:$semibold;
 					padding-bottom:10px;
 					line-height:1;
+					text-indent:-20px;
 					
 					&:before{
 						content:"-";
-						padding-right:40px;
+						padding-right:20px;
+						display:inline-block;
 					}
 					
 					&:last-child{

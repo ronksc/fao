@@ -1,7 +1,7 @@
 <script>	
 	var full_url = '<?=get_permalink()?>';
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGf4_LayRs8FAHXa2Mh2GbHSE6c5ZnhjU"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyATPxXUfuRPFk71eoJyHd5Fn0Z_unFmDkE"></script>
 
 
 <div class="container">
@@ -67,8 +67,15 @@
 					<div class="storelocator__filter-element">
 						<div class="storelocator__filter-title">City</div>
 						<div class="storelocator__filter-input">
-							<select>
-								<option>ShangHai</option>
+							<select id="storelocator_area">
+								<option value="1">ShangHai</option>
+								<option value="2">TianJin</option>
+								<option value="3">SuZhou</option>
+								<option value="4">HangZhou</option>
+								<option value="5">NingBo</option>
+								<option value="6">WuHan</option>
+								<option value="7">Chengdu</option>
+								<option value="8">Changzhou</option>
 							</select>
 						</div>
 					</div>
@@ -80,16 +87,11 @@
 					<div class="storelocator__list-wrapper">
 						<div class="storelocator__list-content">
 							<div class="storelocator__list-item">
-								<div class="list-item__title">Central Central</div>
-								<div class="list-item__address">Shop 2142-2143, Level 2, Shoppes at Cotai Central, Sands Cotai Central, The Cotai Strip, Taipa, Macao SAR, P.R. China</div>
+								<div class="list-item__title">Shanghai Sogo</div>
+								<div class="list-item__address">CCSHOP, 2F, No.1618  West Nanjing Road, Jing'an District, Shanghai,China</div>
 								<div class="list-item__hour">
 									<div class="list-item__hour-toggle">Opening hours</div>
-									<div class="list-item__hour-content">
-										<ul>
-											<li>Monday-Satuarday: 10:00am - 21:30pm</li>
-											<li>Sunday: 10:00am - 21:00pm</li>
-										</ul>
-									</div>
+									<div class="list-item__hour-content">10:00 - 22:00</div>
 								</div>
 							</div>
 						</div>	
@@ -172,9 +174,9 @@
 	<div class="row module module__newsletter justify-content-md-center">
 		<div class="col-10 module__newsletter-wrapper">
 			<div class="row">
-				<div class="col-12 col-md-6 newsletter-title">Enter Your e-mail to subscribe to Our newsletters</div>
-				<div class="col-12 col-md-4"><input type="email" placeholder="your email address" /></div>
-				<div class="col-12 col-md-2"><input class="button" type="submit" value="Submit" /></div>
+				<div class="col-12 col-md-4 col-lg-5 newsletter-title">Enter Your e-mail to subscribe to Our newsletters</div>
+				<div class="col-12 col-md-5 col-lg-5"><input type="email" placeholder="your email address" /></div>
+				<div class="col-12 col-md-3 col-lg-2"><input class="button" type="submit" value="Submit" /></div>
 			</div>
 		</div>
 	</div>
@@ -194,13 +196,28 @@
 		labelOrigin:  new google.maps.Point(18,-26),
 	};
 	
-	var property_marker_img = {
-		url: '<?=get_stylesheet_directory_uri()?>/assets/images/marker-property.png',
-		size: new google.maps.Size(8, 8),
-		labelOrigin:  new google.maps.Point(4,-4),
-	};
+	var location_value = [
+		{id:1, map_lat:"31.223238", map_lng:"121.4441133", zoom_level:17, country:'China', city:'ShangHai'},
+		{id:2, map_lat:"39.119161", map_lng:"117.194417", zoom_level:17, country:'China', city:'TianJin'},
+		{id:3, map_lat:"31.321398", map_lng:"120.71351", zoom_level:17, country:'China', city:'SuZhou'},
+		{id:4, map_lat:"30.268407", map_lng:"120.161403", zoom_level:17, country:'China', city:'HangZhou'},
+		{id:5, map_lat:"29.966577", map_lng:"121.359059", zoom_level:10, country:'China', city:'NingBo'},
+		{id:6, map_lat:"30.580552", map_lng:"114.267118", zoom_level:17, country:'China', city:'WuHan'},
+		{id:7, map_lat:"30.644637", map_lng:"104.081304", zoom_level:13, country:'China', city:'Chengdu'},
+		{id:8, map_lat:"31.774856", map_lng:"119.960649", zoom_level:17, country:'China', city:'Changzhou'}
+	]
 
 	marker_value = [
-		{map_lat:'31.223238', map_lng:'121.4441133', marker_type:'region', markerlabel: 'Mainland China', type: 'investment', status: ''}, //Mainland China
+		{map_lat:'31.223238', map_lng:'121.4441133', country:'China', city:'ShangHai', brand:'CCShop', store_name:'Shanghai Sogo', address:"CCSHOP, 2F, No.1618  West Nanjing Road, Jing'an District, Shanghai,China", hours:'10:00 - 22:00'},
+		{map_lat:"39.119161", map_lng:"117.194417", country:"China", city:"TianJin", brand:"CCShop", store_name:"Tianjin Isetan", address:"CCSHOP, 2F, No.108 Nanjing Road, Heping District, Tianjin,China", hours:"10:00 - 22:00"},
+		{map_lat:"31.321398", map_lng:"120.71351", country:"China", city:"SuZhou", brand:"CCShop", store_name:"Suzhou Sogo", address:"CCSHOP, 1A-17, 1/F, No.268 Wangdun Road, Sogo, Suzhou, China", hours:"10:00 - 22:00"},
+		{map_lat:"30.268407", map_lng:"120.161403", country:"China", city:"HangZhou", brand:"CCShop", store_name:"Hangzhou Intime Wulin", address:"CCSHOP, B1, No.530, Yan’an Rroad, Hangzhou, China", hours:"10:00 - 22:00"},
+		{map_lat:"29.869438", map_lng:"121.551921", country:"China", city:"NingBo", brand:"CCShop", store_name:"Ningbo Intime Tianyi", address:"CCSHOP, 1F,No.188, East Zhongshan Road , Ningbo, China", hours:"10:00 - 22:00"},
+		{map_lat:"30.0288275", map_lng:"121.1285858", country:"China", city:"NingBo", brand:"CCShop", store_name:"Ningbo Intime Wulin", address:"CCSHOP, 1F,No.909,Siming Road Ningbo, China", hours:"10:00 - 22:00"},
+		{map_lat:"30.580552", map_lng:"114.267118", country:"China", city:"WuHan", brand:"CCShop", store_name:"Wuhan Plaza", address:"CCSHOP, 3F, No.688 Jiefang Avenue, Wuhan, China", hours:"10:00 - 22:00"},
+		{map_lat:"30.580144", map_lng:"114.267309", country:"China", city:"WuHan", brand:"CCShop", store_name:"Wuhan Internation Plaza", address:"CCSHOP, 4F, No.690 Jiefang Avenue, Wuhan, China", hours:"10:00 - 22:00"},
+		{map_lat:"30.658783", map_lng:"104.078411", country:"China", city:"Chengdu", brand:"CCShop", store_name:"Chengdu Wangfujing 1", address:"CCSHOP, 2F, No.15, Zongfu Road, Chengdu, China", hours:"10:00 - 22:00"},
+		{map_lat:"30.61997", map_lng:"104.073671", country:"China", city:"Chengdu", brand:"CCShop", store_name:"Chengdu Wangfujing 2", address:"CCSHOP, 1F, No.2 Kehua Middle Road, Wuhou District, Chengdu, China", hours:"10:00 - 22:00"},
+		{map_lat:"31.774856", map_lng:"119.960649", country:"China", city:"Changzhou", brand:"CCShop", store_name:"Changzhou Shopping Center", address:"CCSHOP, B1, No.1, West Yanling Road Changzhou, China", hours:"10:00 - 22:00"},
 	];
 </script>

@@ -27,7 +27,8 @@
 			font-weight:$semibold;
 			padding-bottom:10px;
 			
-			.text__element-title{
+			//.text__element-title{
+			strong, b{
 				font-size:27px;
 			}
 			
@@ -76,6 +77,13 @@
 			padding-right: 0;
 			padding-left: 0;
 	  	}
+		
+		.img__element{
+			&.video{
+				width:100%; 
+				position:relative;
+			}
+		}
 		
 		.lookbook__element{
 			.lookbook__element-wrapper{
@@ -182,6 +190,9 @@
 		
 		.storelocator__list-wrapper{
 			padding-top:20px;
+			height:240px;
+			overflow-y:scroll;
+			
 			.storelocator__list-content{
 				.storelocator__list-item{
 					margin-bottom:20px;
@@ -289,7 +300,7 @@
 	.module__newsletter{
 		
 		.module__newsletter-wrapper{
-			margin:30px 0;
+			margin:30px auto;
 			border:1px solid #7F7F7F;
 			font-size:18px;
 			padding:30px;
@@ -317,8 +328,7 @@
 				font-size:15px;
 				border:1px solid #000;
 				padding:10px 15px;
-				
-				
+				width:100%;
 			}
 			
 			.button{
@@ -342,6 +352,8 @@
 		
 		.module__logo_text-image{
 			margin-bottom:30px;
+			display:block;
+			width:100%;
 		}
 		
 		.module__logo_text-content{
@@ -365,7 +377,8 @@
 		.text__element{
 			font-size:27px;
 
-			.text__element-title{
+			//.text__element-title{
+			strong, b{
 				font-size:45px;
 			}
 		}

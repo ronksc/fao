@@ -5,6 +5,7 @@ body{
 	font-family: 'Barlow Condensed', sans-serif;
 	line-height:1.2;
 	color:#000;
+	background:#dcdbdb;
 }
 
 a{
@@ -88,11 +89,15 @@ ul{
 }
 
 .margin-bottom-20{
-	margin-bottom:20px;
+	margin-bottom:20px!important;
 }
 
 .margin-bottom-30{
-	margin-bottom:30px;
+	margin-bottom:30px!important;
+}
+
+.main{
+	background:#fff;
 }
 
 .breadcumb{

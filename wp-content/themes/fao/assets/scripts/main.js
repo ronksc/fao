@@ -227,103 +227,58 @@
 			var markerLatlng = new google.maps.LatLng(markerVar.map_lat, markerVar.map_lng);
 			var marker;
 			
-			switch(markerVar.marker_type){
-				case 'region':
-				  marker = new google.maps.Marker({
-					  map: map,
-					  id: markerVar.marker_id,
-					  type: markerVar.marker_type,
-					  position:markerLatlng,
-					  icon: region_marker_img,
-					  filter_type: markerVar.type,
-					  filter_status: markerVar.status,
-					  url:markerVar.url,
-					  zIndex:25,
-					  /*label: {
-						  text: markerVar.markerlabel,
-						  color: "#2c2c2c",
-						  fontSize: "14px",
-						  fontWeight: "600",
-						  fontFamily: "Montserrat"
-					  },*/
-					  optimized : false
-				  });
-				  break;
-				  
-				case 'property':
-				  marker = new google.maps.Marker({
-					  map: map,
-					  id: markerVar.marker_id,
-					  type: markerVar.marker_type,
-					  position:markerLatlng,
-					  icon: property_marker_img,
-					  filter_type: markerVar.type,
-					  filter_status: markerVar.status,
-					  url:markerVar.url,
-					  zIndex:25,
-					  optimized : false
-				  });
-				  
-				  $('#property-list ul').append('<li data-markerid="' + markerVar.marker_id + '"><a class="marker-link" data-markerid="' + index + '" href="#">' + markerVar.infoboxText + '</a></li>');
-				  
-				  var boxText = document.createElement("div");
-				  boxText.id = markerVar.marker_id;
-				  boxText.className = "markerOverlay";
-				  boxText.innerHTML = '<div class="item--svg-clip-path-svg"><svg width="324" height="232"><image xlink:href="'+markerVar.infoboxImage+'" width="324" height="232" /></svg></div><div class="iw-subTitle"><div>'+markerVar.infoboxText+'</div><a href="'+markerVar.url+'"></a></div>';
-				  
-				  var myOptions = {
-						content: boxText,
-						disableAutoPan: false,
-						maxWidth: 0,
-						pixelOffset: new google.maps.Size(-162, -249),
-						zIndex: null,
-						infoBoxClearance: new google.maps.Size(1, 1),
-						isHidden: false,
-						pane: "floatPane",
-						closeBoxURL: "",
-						enableEventPropagation: false
-					};
-					
-					var infowindow = new InfoBox(myOptions);
-					infowindows[marker.id] = infowindow;
-					
-				  break;
-			}
+			marker = new google.maps.Marker({
+				  map: map,
+				  id: markerVar.marker_id,
+				  //type: markerVar.marker_type,
+				  position:markerLatlng,
+				  icon: region_marker_img,
+				  //filter_type: markerVar.type,
+				  //filter_status: markerVar.status,
+				  //url:markerVar.url,
+				  zIndex:25,
+				  optimized : false
+			  });
 			
 			map_marker.push(marker);
-			
-			google.maps.event.addListener(map_marker[map_marker.length - 1], 'click', function() {
-				switch(this.type){
-					case 'region':
-						if(this.url){
-							window.location.href = this.url;
-						}
-						
-						break;
-					case 'property':
-						if(active_info){
-							infowindows[active_info].close();	
-						}
-						
-						infowindows[this.id].open(map, this);
-						active_info = this.id;
-						
-						$('#property-list ul a').removeClass('current');
-						$('#property-list ul a').eq(index).addClass('current');
-						
-						break;
-				}
-			});
-			
-			google.maps.event.addListener(map, 'click', function() {				
-				if(infowindow){
-					infowindow.close();
-				}
-				
-				$('#property-list ul a').removeClass('current');
-			});
 		}
 		
+		var area_selector = function(){
+			$('#storelocator_area').change(function(){				
+				var area_value = this.value;
+				var lookup = {};
+				for(var i=0; i<location_value.length; i++){
+					lookup[location_value[i].id] = location_value[i];
+				}
+				
+				var center = new google.maps.LatLng(lookup[this.value].map_lat, lookup[this.value].map_lng);
+				map.panTo(center);
+				map.setZoom(lookup[this.value].zoom_level);
+				
+				$('.storelocator__list-content').html('');
+				//var lookup_shop = [];
+				var shop_address = '';
+				for(var j=0; j<marker_value.length; j++){
+					//console.log(marker_value[j].city);
+					
+					if(marker_value[j].city === lookup[this.value].city){
+						//lookup_shop.push(marker_value[j]);
+						shop_address +='<div class="storelocator__list-item">';
+							shop_address +='<div class="list-item__title">'+marker_value[j].store_name+'</div>';
+							shop_address +='<div class="list-item__address">'+marker_value[j].address+'</div>';
+							shop_address +='<div class="list-item__hour">';
+								shop_address +='<div class="list-item__hour-toggle">Opening hours</div>';
+								shop_address +='<div class="list-item__hour-content">'+marker_value[j].hours+'</div>';
+							shop_address +='</div>';
+						shop_address +='</div>';
+					}
+				}
+				
+				//console.log(lookup_shop);
+				$('.storelocator__list-content').html(shop_address);
+				
+			});	
+		};
 		
 		
 		var googleMapSetup = function(){
@@ -333,16 +288,7 @@
 						codeAddress(marker_value[i], i);
 					}
 				}).done(function(){
-					/*initMapFiltering();
-					hideAllMarker();
-					initPropertylistMarkerTriggle();
-					
-					for(var j=0; j<map_marker.length; j++){
-						if(map_marker[j].filter_type === 'development' || map_marker[j].filter_type === 'hospitality'){
-							map_marker[j].setVisible(true);
-							$('#property-list ul li[data-markerid="'+map_marker[j].id+'"]').show();
-						}
-					}*/
+					area_selector();
 				});
 			}
 		};
@@ -367,7 +313,48 @@
       init: function() {
         // JavaScript to be fired on the about us page
       }
-    }
+    },
+	'page_template_template_press':{
+	  init: function(){
+		var year_select = function(){
+			$('#year_select').change(function(){
+				if(this.value !== ''){
+					window.location.href=this.value;
+				}
+			});
+		};
+		year_select();
+		
+		function load_news(page){		  
+			var ajaxurl = '/wp-admin/admin-ajax.php';
+			var data = {
+			  page: page ? page:1,
+			  per_page : 5,
+			  yearData: year_value,
+			  action: "load-press"
+			};
+			
+			$.post(ajaxurl, data, function(response) {
+			  //$('#news_container').html('');
+			  $response = $(response);
+			  $response.hide();
+			  $("#press_container").append($response);
+			  
+			  $response.fadeIn(500);
+			  
+			  if(lastpage){
+				$('.press_loadmore').hide();  
+			  }
+			});
+	  	}
+		
+		$('.press_loadmore').click(function(){
+			page++;
+			
+			load_news(page);
+		});
+      }	
+	}
   };
 
   // The routing fires all common scripts, followed by the page specific scripts.
