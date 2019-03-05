@@ -2,22 +2,21 @@
 	.page-template-template-about{
 		.text__element{
 			margin-top:30px;
-			font-size:30px;
+			font-size:15px;
 			font-weight:$semibold;
 			padding-bottom:10px;
 		
-			//.text__element-title{
 			strong, b{
-				font-size:50px;
+				font-size:27px;
 			}
 		}
 		
 		.about__text-section{
 			margin-bottom:80px;
+			width:100%;
 		
-			//.text_section-title{
 			h2{
-				font-size:50px;
+				font-size:27px;
 				font-weight:$semibold;
 				
 				&:after{
@@ -25,7 +24,7 @@
 					background:#000;
 					width:100%;
 					height:25px;
-					margin:10px 0;
+					margin:5px 0 10px 0;
 					display:block;
 				}
 			}
@@ -35,7 +34,7 @@
 				margin:0;
 				li{
 					list-style:none;
-					font-size:30px;
+					font-size:15px;
 					font-family: 'Barlow Condensed', sans-serif;
 					font-weight:$semibold;
 					padding-bottom:10px;
@@ -62,7 +61,27 @@
 }
 
 @include media-breakpoint-up(md) {
-	
+	.page-template-template-about{
+		.text__element{
+			font-size:27px;
+			
+			strong, b{
+				font-size:45px;
+			}
+		}
+		
+		.about__text-section{
+			h2{
+				font-size:45px;
+			}
+			
+			ul{
+				li{
+					font-size:27px;
+				}
+			}
+		}
+	}
 }
 
 @include media-breakpoint-up(lg) {

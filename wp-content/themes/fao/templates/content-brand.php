@@ -1,23 +1,42 @@
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqR02hkIwAolyKNQsUCXuOZtlAqCAe3K0&language=en"></script>
 <script>	
 	var full_url = '<?=get_permalink()?>';
+	var map;
+	var marker_value = [];
+	var map_marker = [];
+	var location_value = [];
+	var region_marker_img = {
+		url: '<?=get_stylesheet_directory_uri()?>/assets/images/marker.png',
+		size: new google.maps.Size(36, 53),
+		labelOrigin:  new google.maps.Point(18,-26),
+	};
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCGf4_LayRs8FAHXa2Mh2GbHSE6c5ZnhjU"></script>
-
 
 
 <div class="container">
 	<?php
-		$featured_img_url = get_the_post_thumbnail_url();
-		
-		//echo 'featured_img_url = '.$featured_img_url;
-		
-		if($featured_img_url){
-			echo '<div class="row">';
-				echo '<div class="page_feature_image">';
-					echo '<img src="'.$featured_img_url.'" class="img-fluid"/>';
+			
+		$feature_media = get_field('feature_media');
+			
+		switch($feature_media['media_type']):
+			case 'image':
+				echo '<div class="row">';
+					echo '<div class="page_feature_image">';
+						echo '<img src="'.$feature_media['image']['url'].'" class="img-fluid"/>';
+					echo '</div>';
+				echo '</div>';	
+				break;
+			case 'video':
+				echo '<div class="row">';
+					echo '<div class="page_feature_image video">';
+						echo '<video width="100%" height="100%" poster="'.$feature_media['video_poster_image']['url'].'" autoplay muted loop>';
+							echo '<source src="'.$feature_media['video']['url'].'" type="video/mp4">';
+							echo 'Your browser does not support the video tag.';
+						echo '</video>';
+					echo '</div>';
 				echo '</div>';
-			echo '</div>';
-		}
+				break;		
+		endswitch;
 	?>
 
 	
@@ -76,18 +95,32 @@
 				if ( get_row_layout() == 'text_with_image' ):
 					$content = get_sub_field('content');
 					$image = get_sub_field('image');
+					$image_link = get_sub_field('image_link');
 					$link = get_sub_field('link');
 					$link_target = get_sub_field('link_target');
+					$hide_blackbar = get_sub_field('hide_blackbar');
+					$blackbar_margin = get_sub_field('blackbar_margin');
 					
+					if($blackbar_margin){
+						$blackbar_margin_class = "no-margin";
+					}else{
+						$blackbar_margin_class = "";
+					}
 				
-					echo '<div class="row module module__img-text margin-bottom-30">';
-						echo '<div class="blackbar before"></div>';
+					echo '<div class="row module module__img-text margin-bottom-20">';
+						if(!$hide_blackbar){
+							echo '<div class="blackbar before '.$blackbar_margin_class.'"></div>';
+						}
 						
 						echo '<div class="text__element">';
 							echo $content;
 						echo '</div>';
 						echo '<div class="img__element">';
-							echo '<a href="'.$link.'" target="'.$link_target.'"><img src="'.$image['url'].'" class="img-fluid"/></a>';
+							if($image_link){
+								echo '<a href="'.$link.'" target="'.$link_target.'"><img src="'.$image['url'].'" class="img-fluid"/></a>';
+							}else{
+								echo '<img src="'.$image['url'].'" class="img-fluid"/>';	
+							}
 						echo '</div>';
 					echo '</div>';
 					
@@ -119,7 +152,7 @@
 								break;
 							case 'video':
 								echo '<div class="col-12 '.$position_class_media.' col-md-7 img__element video">';
-									echo '<video width="100%" height="100%" autoplay muted loop>';
+									echo '<video width="100%" height="100%" poster="'.$media_element['video_poster_image']['url'].'" autoplay muted loop>';
 										echo '<source src="'.$media_element['video']['url'].'" type="video/mp4">';
 										echo 'Your browser does not support the video tag.';
 									echo '</video>';
@@ -152,44 +185,143 @@
 				endif;
 				
 				if ( get_row_layout() == 'google_map' ):
+					$taxonomyName = 'store_category';
+					$countries = get_sub_field('country');
+					$brand = get_sub_field('brand');
+					$location_value = array();
+					
+					/*if(count($countries) > 1){
+						foreach($countries as $country):
+							$country_term = get_term_by('term_id', $country, $taxonomyName);
+							$cities = get_terms( $taxonomyName, array( 'parent' => $country, 'orderby' => 'term_id', 'hide_empty' => false ) );
+							if(count($cities) > 0){
+								foreach($cities as $city):
+									$temp = array('country'=>$country_term->name, 'city'=>$city->name);
+									array_push($location_value, $temp);
+								endforeach;
+							}else{
+								$temp = array('country'=>$country_term->name, 'city'=>$country_term->name);
+								array_push($location_value, $temp);
+							}
+						endforeach;
+					}else{
+						$country_term = get_term_by('term_id', $countries[0], $taxonomyName);
+						$cities = get_terms( $taxonomyName, array( 'parent' => $countries[0], 'orderby' => 'term_id', 'hide_empty' => false ) );						
+						if(count($cities) > 0){
+							foreach($cities as $city):
+								$temp = array('country'=>$country_term->name, 'city'=>$city->name);
+								array_push($location_value, $temp);
+							endforeach;
+						}else{
+							$temp = array('country'=>$country_term->name, 'city'=>$country_term->name);
+							array_push($location_value, $temp);
+						}
+					}*/
+					
+					$tax_query = [];
+					if(count($countries) > 1){
+						$tax_country_query = array('relation'=>'OR');
+						foreach($countries as $country){
+							$temp_query = array(
+								'relation' => 'AND',
+								array(
+									'taxonomy' => 'store_category', 
+									'field' => 'term_id', 
+									'terms' => $country
+								),
+								array(
+									'taxonomy' => 'store_category', 
+									'field' => 'term_id', 
+									'terms' => $brand
+								)							
+							);
+							array_push($tax_country_query, $temp_query);
+						}
+						$tax_query = array('relation' => 'OR', $tax_country_query);
+					}else{
+						$tax_query = array(
+							'relation' => 'AND',
+							array(
+								'taxonomy' => 'store_category', 
+								'field' => 'term_id', 
+								'terms' => $countries[0]								
+							),
+							array(
+								'taxonomy' => 'store_category', 
+								'field' => 'term_id', 
+								'terms' => $brand							
+							)
+						);
+					}
+					
+					//print_r($tax_query);
+					
+					$args = array(
+						'post_type' => 'store',
+						'posts_per_page' => -1,
+						'tax_query' => $tax_query
+					);
+					$query = new WP_Query( $args );
+					
+					$marker_value = [];					
+					if ( $query->have_posts() ) {
+						while ( $query->have_posts() ) {
+							$query->the_post();
+							
+							$marker_post_id = get_the_id();
+
+							$store_name = get_field('store_name', $marker_post_id);
+							
+							
+							$address = get_field('address', $marker_post_id);
+							$opening_hour = get_field('opening_hour', $marker_post_id);
+							$store_location = get_field('store_location', $marker_post_id);
+							$country = get_field('country', $marker_post_id);
+							$city = get_field('city', $marker_post_id);
+							$brand = get_field('brand', $marker_post_id); 
+							
+							$marker_temp = array('map_lat'=>$store_location['lat'], 'map_lng'=>$store_location['lng'], 'country'=>$country->name, 'city'=>$city->name, 'store_name'=>$store_name, 'address'=>$address, 'hours'=>$opening_hour);
+							array_push($marker_value, $marker_temp);
+							
+							
+							$location_temp = array('country'=>$country->name, 'city'=>$city->name);
+							
+							$location_in_array = in_array($city->name, array_column($location_value, 'city'));
+							
+							if(!$location_in_array){
+								array_push($location_value, $location_temp);
+							}
+						}
+						wp_reset_postdata();
+					}
+					
 				
 					echo '<div class="row module module__storelocator">';
 						echo '<div class="module__storelocator-title">STORE LOCATOR</div>';
 						
 						echo '<div class="col-12">';
 							echo '<div class="row storelocator__map-row">';
-								echo '<div class="col-6">';
+								echo '<div class="col-12 col-md-6">';
 									echo '<div class="storelocator__map-wrapper">';
 										echo '<div id="map_div"></div>';
 									echo '</div>';
 								echo '</div>';
-								echo '<div class="col-6">';
+								echo '<div class="col-12 col-md-6">';
 									echo '<div class="storelocator__filter-element">';
 										echo '<div class="storelocator__filter-title">Country</div>';
-										echo '<div class="storelocator__filter-input">';
-											echo '<select>';
-												echo '<option>China</option>';
-											echo '</select>';
+										echo '<div class="storelocator__filter-input" id="country_select">';
+											//country select show here;
 										echo '</div>';
 									echo '</div>';
 									echo '<div class="storelocator__filter-element">';
 										echo '<div class="storelocator__filter-title">City</div>';
-										echo '<div class="storelocator__filter-input">';
-											echo '<select id="storelocator_area">';
-												echo '<option value="1">ShangHai</option>';
-												echo '<option value="2">TianJin</option>';
-												echo '<option value="3">SuZhou</option>';
-												echo '<option value="4">HangZhou</option>';
-												echo '<option value="5">NingBo</option>';
-												echo '<option value="6">WuHan</option>';
-												echo '<option value="7">Chengdu</option>';
-												echo '<option value="8">Changzhou</option>';
-											echo '</select>';
+										echo '<div class="storelocator__filter-input" id="city_select">';
+											//city select show here;
 										echo '</div>';
 									echo '</div>';
 									echo '<div class="storelocator__filter-element">';
 										echo '<div class="storelocator__filter-input">';
-											echo '<input class="button" type="submit" value="Search" />';
+											echo '<a id="map_search" href="javascript:;" class="button">Search</a>';
 										echo '</div>';
 									echo '</div>';
 									echo '<div class="storelocator__list-wrapper">';
@@ -208,49 +340,18 @@
 							echo '</div>';
 						echo '</div>';
 					echo '</div>';
-				?>
-				
-				<script type="text/javascript">
-					var map;
-					var active_info;
-					var marker_value = [];
-					var map_marker = [];
-					var infowindows = [];
-					var inital_point = [{map_lat:'31.223238', map_lng:'121.4441133', zoom_level:17}];
-				
-					var region_marker_img = {
-						url: '<?=get_stylesheet_directory_uri()?>/assets/images/marker.png',
-						size: new google.maps.Size(36, 53),
-						labelOrigin:  new google.maps.Point(18,-26),
-					};
 					
-					var location_value = [
-						{id:1, map_lat:"31.223238", map_lng:"121.4441133", zoom_level:17, country:'China', city:'ShangHai'},
-						{id:2, map_lat:"39.119161", map_lng:"117.194417", zoom_level:17, country:'China', city:'TianJin'},
-						{id:3, map_lat:"31.321398", map_lng:"120.71351", zoom_level:17, country:'China', city:'SuZhou'},
-						{id:4, map_lat:"30.268407", map_lng:"120.161403", zoom_level:17, country:'China', city:'HangZhou'},
-						{id:5, map_lat:"29.966577", map_lng:"121.359059", zoom_level:10, country:'China', city:'NingBo'},
-						{id:6, map_lat:"30.580552", map_lng:"114.267118", zoom_level:17, country:'China', city:'WuHan'},
-						{id:7, map_lat:"30.644637", map_lng:"104.081304", zoom_level:13, country:'China', city:'Chengdu'},
-						{id:8, map_lat:"31.774856", map_lng:"119.960649", zoom_level:17, country:'China', city:'Changzhou'}
-					]
+					?>
+						
+					<script type="text/javascript">
+						var inital_point = [{map_lat:'31.223238', map_lng:'121.4441133', zoom_level:17}];
 				
-					marker_value = [
-						{map_lat:'31.223238', map_lng:'121.4441133', country:'China', city:'ShangHai', brand:'CCShop', store_name:'Shanghai Sogo', address:"CCSHOP, 2F, No.1618  West Nanjing Road, Jing'an District, Shanghai,China", hours:'10:00 - 22:00'},
-						{map_lat:"39.119161", map_lng:"117.194417", country:"China", city:"TianJin", brand:"CCShop", store_name:"Tianjin Isetan", address:"CCSHOP, 2F, No.108 Nanjing Road, Heping District, Tianjin,China", hours:"10:00 - 22:00"},
-						{map_lat:"31.321398", map_lng:"120.71351", country:"China", city:"SuZhou", brand:"CCShop", store_name:"Suzhou Sogo", address:"CCSHOP, 1A-17, 1/F, No.268 Wangdun Road, Sogo, Suzhou, China", hours:"10:00 - 22:00"},
-						{map_lat:"30.268407", map_lng:"120.161403", country:"China", city:"HangZhou", brand:"CCShop", store_name:"Hangzhou Intime Wulin", address:"CCSHOP, B1, No.530, Yan’an Rroad, Hangzhou, China", hours:"10:00 - 22:00"},
-						{map_lat:"29.869438", map_lng:"121.551921", country:"China", city:"NingBo", brand:"CCShop", store_name:"Ningbo Intime Tianyi", address:"CCSHOP, 1F,No.188, East Zhongshan Road , Ningbo, China", hours:"10:00 - 22:00"},
-						{map_lat:"30.0288275", map_lng:"121.1285858", country:"China", city:"NingBo", brand:"CCShop", store_name:"Ningbo Intime Wulin", address:"CCSHOP, 1F,No.909,Siming Road Ningbo, China", hours:"10:00 - 22:00"},
-						{map_lat:"30.580552", map_lng:"114.267118", country:"China", city:"WuHan", brand:"CCShop", store_name:"Wuhan Plaza", address:"CCSHOP, 3F, No.688 Jiefang Avenue, Wuhan, China", hours:"10:00 - 22:00"},
-						{map_lat:"30.580144", map_lng:"114.267309", country:"China", city:"WuHan", brand:"CCShop", store_name:"Wuhan Internation Plaza", address:"CCSHOP, 4F, No.690 Jiefang Avenue, Wuhan, China", hours:"10:00 - 22:00"},
-						{map_lat:"30.658783", map_lng:"104.078411", country:"China", city:"Chengdu", brand:"CCShop", store_name:"Chengdu Wangfujing 1", address:"CCSHOP, 2F, No.15, Zongfu Road, Chengdu, China", hours:"10:00 - 22:00"},
-						{map_lat:"30.61997", map_lng:"104.073671", country:"China", city:"Chengdu", brand:"CCShop", store_name:"Chengdu Wangfujing 2", address:"CCSHOP, 1F, No.2 Kehua Middle Road, Wuhou District, Chengdu, China", hours:"10:00 - 22:00"},
-						{map_lat:"31.774856", map_lng:"119.960649", country:"China", city:"Changzhou", brand:"CCShop", store_name:"Changzhou Shopping Center", address:"CCSHOP, B1, No.1, West Yanling Road Changzhou, China", hours:"10:00 - 22:00"},
-					];
-				</script>
-				
-				<?php
+						var location_value = <?php echo json_encode($location_value); ?>;
+						
+						marker_value = <?php echo json_encode($marker_value); ?>;
+					</script>
+					
+					<?php
 				endif;
 			
 			endwhile;
@@ -278,7 +379,7 @@
 							echo '<div class="row module__instagram-gallery">';
 								if(sizeof($gallery['image']) > 0):
 									foreach( $gallery['image'] as $key => $image ):										
-										echo '<div class="col-md-4"><a data-fancybox data-src="#hidden-content'.$key.'" href="javascript:;"><img src="'.$image['image']['url'].'" class="img-fluid" /></a></div>';
+										echo '<div class="col-4"><a data-fancybox data-src="#hidden-content'.$key.'" href="javascript:;"><img src="'.$image['image']['url'].'" class="img-fluid" /></a></div>';
 										echo '<div class="instagram-popup" id="hidden-content'.$key.'">';
 											echo '<div class="row">';
 												echo '<div class="col-md-6">';
@@ -292,7 +393,7 @@
 									endforeach;
 								endif;
 							echo '</div>';
-							echo '<div class="module__instagram-social text-right">';
+							echo '<div class="module__instagram-social">';
 								echo '<ul>';
 									echo '<li>'.$gallery['follow_text'].'</li>';
 									if(sizeof($gallery['social_media']) > 0):
@@ -307,6 +408,9 @@
 												case 'weixin':
 													echo '<li><a href="'.$social_media['link'].'" target="_blank"><i class="fab fa-weixin"></i></a></li>';
 													break;
+												case 'weibo':
+													echo '<li><a href="'.$social_media['link'].'" target="_blank"><i class="fab fa-weibo"></i></a></li>';
+													break;
 											endswitch;
 										endforeach;
 									endif;
@@ -319,13 +423,16 @@
 				endif;
 				
 				if ( get_row_layout() == 'newsletter' ):
+				
+					$form_shortcode = get_sub_field('form_shortcode');
 					
 					echo '<div class="row module module__newsletter justify-content-md-center">';
 						echo '<div class="col-10 module__newsletter-wrapper">';
 							echo '<div class="row">';
-								echo '<div class="col-12 col-md-4 col-lg-5 newsletter-title">Enter Your e-mail to subscribe to Our newsletters</div>';
-								echo '<div class="col-12 col-md-5 col-lg-5"><input type="email" placeholder="your email address" /></div>';
-								echo '<div class="col-12 col-md-3 col-lg-2"><input class="button" type="submit" value="Submit" /></div>';
+								echo '<div class="col-12 col-md-4 col-lg-5 newsletter-title">Enter your e-mail to subscribe to our newsletters</div>';
+								echo '<div class="col-12 col-md-8 col-lg-7">';
+									echo do_shortcode($form_shortcode);
+								echo '</div>';
 							echo '</div>';
 						echo '</div>';
 					echo '</div>';
