@@ -297,7 +297,9 @@
 					
 				
 					echo '<div class="row module module__storelocator">';
-						echo '<div class="module__storelocator-title">STORE LOCATOR</div>';
+						echo '<div class="module__storelocator-title">';
+						echo _e('STORE LOCATOR');
+						echo '</div>';
 						
 						echo '<div class="col-12">';
 							echo '<div class="row storelocator__map-row">';
@@ -308,20 +310,26 @@
 								echo '</div>';
 								echo '<div class="col-12 col-md-6">';
 									echo '<div class="storelocator__filter-element">';
-										echo '<div class="storelocator__filter-title">Country</div>';
+										echo '<div class="storelocator__filter-title">';
+										echo _e('Country');
+										echo '</div>';
 										echo '<div class="storelocator__filter-input" id="country_select">';
 											//country select show here;
 										echo '</div>';
 									echo '</div>';
 									echo '<div class="storelocator__filter-element">';
-										echo '<div class="storelocator__filter-title">City</div>';
+										echo '<div class="storelocator__filter-title">';
+										echo _e('City');
+										echo '</div>';
 										echo '<div class="storelocator__filter-input" id="city_select">';
 											//city select show here;
 										echo '</div>';
 									echo '</div>';
 									echo '<div class="storelocator__filter-element">';
 										echo '<div class="storelocator__filter-input">';
-											echo '<a id="map_search" href="javascript:;" class="button">Search</a>';
+											echo '<a id="map_search" href="javascript:;" class="button">';
+											echo _e('Search');
+											echo '</a>';
 										echo '</div>';
 									echo '</div>';
 									echo '<div class="storelocator__list-wrapper">';
@@ -429,7 +437,9 @@
 					echo '<div class="row module module__newsletter justify-content-md-center">';
 						echo '<div class="col-10 module__newsletter-wrapper">';
 							echo '<div class="row">';
-								echo '<div class="col-12 col-md-4 col-lg-5 newsletter-title">Enter your e-mail to subscribe to our newsletters</div>';
+								echo '<div class="col-12 col-md-4 col-lg-5 newsletter-title">';
+								echo _e('Enter your e-mail to subscribe to our newsletters');
+								echo '</div>';
 								echo '<div class="col-12 col-md-8 col-lg-7">';
 									echo do_shortcode($form_shortcode);
 								echo '</div>';

@@ -29,9 +29,18 @@
 			?>
 		</div>
 		<div class="col-md-7 no-padding">
-			<h3>LEAVE US A MESSAGE</h3>
+			<h3><?php _e('LEAVE US A MESSAGE'); ?></h3>
 			<?php
-				echo do_shortcode('[contact-form-7 id="58" title="Contact"]');
+				switch(ICL_LANGUAGE_CODE){
+					case 'en':
+						//echo 'EN';
+						echo do_shortcode('[contact-form-7 id="58" title="Contact"]');
+						break;
+					case 'zh-hans':
+						//echo '簡';
+						echo do_shortcode('[contact-form-7 id="1341" title="Contact CN"]');
+						break;	
+				}
 			?>
 		</div>
 	</div>

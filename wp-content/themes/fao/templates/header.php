@@ -12,13 +12,46 @@
 			  <a href="javascript:;" class="nav_toggle"><i class="fas fa-bars"></i></a>
 			  <a class="navbar-brand" href="<?php echo esc_url(home_url('/')); ?>" style="display:none;"><?php bloginfo('name'); ?></a>
 			</div>
-			<!--<div class="lang">
-				<select>
+			<div class="lang">
+				<!--<select>
 					<option>ENG</option>
-					<option>繁</option>
 					<option>簡</option>
+				</select>-->
+				
+				<?php
+					/*switch(ICL_LANGUAGE_CODE){
+						case 'en':
+							echo 'EN';
+							break;
+						case 'zh-hans':
+							echo '簡';
+							break;
+						case 'zh-hant':
+							echo '繁';
+							break;	
+					}*/
+				?>
+				<select id="lang_select" onChange="window.location.href=this.value">
+					<?php if ( function_exists('icl_object_id') ) {
+						
+						
+						$lang_arr = icl_get_languages('skip_missing=1&orderby=id&order=desc');
+						
+						if(sizeof($lang_arr) > 1){
+							foreach( $lang_arr as $lang ){
+								if(ICL_LANGUAGE_CODE == $lang['code']){
+									$lang_selected = 'selected = "selected"';
+								}else{
+									$lang_selected = '';
+								}
+							
+								echo '<option '.$lang_selected.' value="'.$lang['url'].'">'.$lang['native_name'].'</option>';
+							}
+						}
+						
+					}?>
 				</select>
-			</div>-->
+			</div>
 		</div>
     
     </div>

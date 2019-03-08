@@ -42,7 +42,7 @@
 	
 	<div class="row">
 		<div class="press-container">
-			<h3>PRESS RELEASE</h3>
+			<h3><? _e('PRESS RELEASE'); ?></h3>
 			<!--<form class="my-filter" method="GET" action="">-->
 			<?php
 				//$years = $wpdb->get_col("SELECT DISTINCT YEAR(post_date) FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' AND category_name = 'press-release' ORDER BY post_date DESC");
@@ -51,7 +51,7 @@
 				
 			?>
 			<select id="year_select" class="year_select">
-				<option value="<?php echo $full_uri; ?>"> All Years </option>
+				<option value="<?php echo $full_uri; ?>"> <?php _e('All Years'); ?> </option>
 				<?php foreach($years as $year) : 
 					if($blog_year == $year){
 						$selected = 'selected="selected"';
@@ -75,7 +75,14 @@
 			
 				
 					<div class="press-list-item">
-						<div class="press-date"><?php echo get_the_date('F j, Y'); ?></div>
+						<div class="press-date">
+							<?php
+							  if(ICL_LANGUAGE_CODE=='zh-hans' || ICL_LANGUAGE_CODE=='zh-hant') {
+								  echo get_the_date('Y年m月j日');
+							  } else { 
+								  echo get_the_date('F j, Y');
+							  } ?>
+						</div>
 						<a class="press-title-link" href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
 					</div>		
 				
@@ -202,7 +209,9 @@
 					echo '<div class="row module module__newsletter justify-content-md-center">';
 						echo '<div class="col-10 module__newsletter-wrapper">';
 							echo '<div class="row">';
-								echo '<div class="col-12 col-md-4 col-lg-5 newsletter-title">Enter your e-mail to subscribe to our newsletters</div>';
+								echo '<div class="col-12 col-md-4 col-lg-5 newsletter-title">';
+								echo _e('Enter your e-mail to subscribe to our newsletters');
+								echo '</div>';
 								echo '<div class="col-12 col-md-8 col-lg-7">';
 									echo do_shortcode($form_shortcode);
 								echo '</div>';

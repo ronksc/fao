@@ -1,5 +1,6 @@
 <?php
-	$press_page_id = 30;
+	//$press_page_id = 30;
+	$press_page_id = icl_object_id(30, 'page', false,ICL_LANGUAGE_CODE);
 	
 	$hide_feature_image = get_field('hide_feature_image');
 ?>
@@ -68,7 +69,14 @@
 		  <div class="press-content">
 			<h2><?php the_title(); ?></h2>
 			
-			<div class="date"><?= get_the_date(); ?></div>
+			<div class="date">
+				<?php
+				  if(ICL_LANGUAGE_CODE=='zh-hans' || ICL_LANGUAGE_CODE=='zh-hant') {
+					  echo get_the_date('Y年m月j日');
+				  } else { 
+					  echo get_the_date('F j, Y');
+				  } ?>
+			</div>
 			
 			<?php $content = get_the_content(); 
 			
@@ -153,7 +161,9 @@
 					echo '<div class="row module module__newsletter justify-content-md-center">';
 						echo '<div class="col-10 module__newsletter-wrapper">';
 							echo '<div class="row">';
-								echo '<div class="col-12 col-md-4 col-lg-5 newsletter-title">Enter Your e-mail to subscribe to Our newsletters</div>';
+								echo '<div class="col-12 col-md-4 col-lg-5 newsletter-title">';
+								echo _e('Enter your e-mail to subscribe to our newsletters');
+								echo '</div>';
 								echo '<div class="col-12 col-md-8 col-lg-7">';
 									echo do_shortcode($form_shortcode);
 								echo '</div>';

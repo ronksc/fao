@@ -288,7 +288,7 @@
 						shop_address +='<div class="list-item__title">'+marker_value[j].store_name+'</div>';
 						shop_address +='<div class="list-item__address">'+marker_value[j].address+'</div>';
 						shop_address +='<div class="list-item__hour">';
-							shop_address +='<div class="list-item__hour-toggle">Opening hours</div>';
+							shop_address +='<div class="list-item__hour-toggle"><?php echo _e("Opening hours");?></div>';
 							shop_address +='<div class="list-item__hour-content">'+marker_value[j].hours+'</div>';
 						shop_address +='</div>';
 					shop_address +='</div>';
