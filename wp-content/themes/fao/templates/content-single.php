@@ -162,7 +162,7 @@
 						echo '<div class="col-10 module__newsletter-wrapper">';
 							echo '<div class="row">';
 								echo '<div class="col-12 col-md-4 col-lg-5 newsletter-title">';
-								echo _e('Enter your e-mail to subscribe to our newsletters');
+								echo _e('Enter your e-mail to subscribe to our newsletters', 'FAO');
 								echo '</div>';
 								echo '<div class="col-12 col-md-8 col-lg-7">';
 									echo do_shortcode($form_shortcode);

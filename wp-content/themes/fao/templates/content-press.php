@@ -42,7 +42,7 @@
 	
 	<div class="row">
 		<div class="press-container">
-			<h3><? _e('PRESS RELEASE'); ?></h3>
+			<h3><?php _e('PRESS RELEASE', 'FAO'); ?></h3>
 			<!--<form class="my-filter" method="GET" action="">-->
 			<?php
 				//$years = $wpdb->get_col("SELECT DISTINCT YEAR(post_date) FROM $wpdb->posts WHERE post_status = 'publish' AND post_type = 'post' AND category_name = 'press-release' ORDER BY post_date DESC");
@@ -51,7 +51,7 @@
 				
 			?>
 			<select id="year_select" class="year_select">
-				<option value="<?php echo $full_uri; ?>"> <?php _e('All Years'); ?> </option>
+				<option value="<?php echo $full_uri; ?>"> <?php _e('All Years', 'FAO'); ?> </option>
 				<?php foreach($years as $year) : 
 					if($blog_year == $year){
 						$selected = 'selected="selected"';
@@ -210,7 +210,7 @@
 						echo '<div class="col-10 module__newsletter-wrapper">';
 							echo '<div class="row">';
 								echo '<div class="col-12 col-md-4 col-lg-5 newsletter-title">';
-								echo _e('Enter your e-mail to subscribe to our newsletters');
+								echo _e('Enter your e-mail to subscribe to our newsletters', 'FAO');
 								echo '</div>';
 								echo '<div class="col-12 col-md-8 col-lg-7">';
 									echo do_shortcode($form_shortcode);

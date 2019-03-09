@@ -15,9 +15,12 @@
 		<div class="row">
 			<div class="col-12 privacy_policy_wrapper">
 				<span class="privacy_policy">
-					<a href="/privacy-policy/" class=""><? _e('Privacy Policy'); ?></a>
+					<?php
+						$privacy_page_id = icl_object_id(59, 'page', false,ICL_LANGUAGE_CODE);
+					?>
+					<a href="<?php echo esc_url( get_permalink($privacy_page_id) );?>" class=""><?php _e('Privacy Policy', 'FAO'); ?></a>
 				</span>
-				<span class="copyright">&copy; 2019 Fred Allard Office Ltd <? _e('All rights reserved'); ?></span>
+				<span class="copyright">&copy; 2019 Fred Allard Office Ltd <?php _e('All rights reserved', 'FAO'); ?></span>
 			</div>
 		</div>
 	</div>

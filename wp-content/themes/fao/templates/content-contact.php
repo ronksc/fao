@@ -29,7 +29,7 @@
 			?>
 		</div>
 		<div class="col-md-7 no-padding">
-			<h3><?php _e('LEAVE US A MESSAGE'); ?></h3>
+			<h3><?php _e('LEAVE US A MESSAGE', 'FAO'); ?></h3>
 			<?php
 				switch(ICL_LANGUAGE_CODE){
 					case 'en':

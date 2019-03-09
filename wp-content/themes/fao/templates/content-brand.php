@@ -298,7 +298,7 @@
 				
 					echo '<div class="row module module__storelocator">';
 						echo '<div class="module__storelocator-title">';
-						echo _e('STORE LOCATOR');
+						echo _e('STORE LOCATOR', 'FAO');
 						echo '</div>';
 						
 						echo '<div class="col-12">';
@@ -311,7 +311,7 @@
 								echo '<div class="col-12 col-md-6">';
 									echo '<div class="storelocator__filter-element">';
 										echo '<div class="storelocator__filter-title">';
-										echo _e('Country');
+										echo _e('Country', 'FAO');
 										echo '</div>';
 										echo '<div class="storelocator__filter-input" id="country_select">';
 											//country select show here;
@@ -319,7 +319,7 @@
 									echo '</div>';
 									echo '<div class="storelocator__filter-element">';
 										echo '<div class="storelocator__filter-title">';
-										echo _e('City');
+										echo _e('City', 'FAO');
 										echo '</div>';
 										echo '<div class="storelocator__filter-input" id="city_select">';
 											//city select show here;
@@ -328,7 +328,7 @@
 									echo '<div class="storelocator__filter-element">';
 										echo '<div class="storelocator__filter-input">';
 											echo '<a id="map_search" href="javascript:;" class="button">';
-											echo _e('Search');
+											echo _e('Search', 'FAO');
 											echo '</a>';
 										echo '</div>';
 									echo '</div>';
@@ -338,7 +338,9 @@
 												echo '<div class="list-item__title">Shanghai Sogo</div>';
 												echo '<div class="list-item__address">CCSHOP, 2F, No.1618  West Nanjing Road, Jing\'an District, Shanghai,China</div>';
 												echo '<div class="list-item__hour">';
-													echo '<div class="list-item__hour-toggle">Opening hours</div>';
+													echo '<div class="list-item__hour-toggle">';
+													echo _e('Opening hours', 'FAO');
+													echo '</div>';
 													echo '<div class="list-item__hour-content">10:00 - 22:00</div>';
 												echo '</div>';
 											echo '</div>';
@@ -438,7 +440,7 @@
 						echo '<div class="col-10 module__newsletter-wrapper">';
 							echo '<div class="row">';
 								echo '<div class="col-12 col-md-4 col-lg-5 newsletter-title">';
-								echo _e('Enter your e-mail to subscribe to our newsletters');
+								echo _e('Enter your e-mail to subscribe to our newsletters', 'FAO');
 								echo '</div>';
 								echo '<div class="col-12 col-md-8 col-lg-7">';
 									echo do_shortcode($form_shortcode);
