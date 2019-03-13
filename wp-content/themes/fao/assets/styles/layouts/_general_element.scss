@@ -413,6 +413,10 @@
 	.module__logo_text{
 		margin-top:50px;
 		
+		.apply_now{
+			display:block;
+		}
+		
 		.module__logo_text-image{
 			margin-bottom:30px;
 			display:block;
@@ -517,6 +521,13 @@
 				width: 30%;
 				margin: 0 0 0 10px !important;
 			}
+		}
+	}
+	
+	.module__logo_text{		
+		.apply_now{
+			display:inline-block;
+			margin-left:30px;
 		}
 	}
 }

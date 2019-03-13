@@ -38,7 +38,14 @@
 						echo '<div class="module__logo_text-image">';
 							echo '<img src="'.$image['url'].'"/>';
 							if($apply_now){
-								echo '<a href="mailto:'.$apply_now_button['email'].'" class="button" style="margin-left:30px;">'.$apply_now_button['button_text'].'</a>';
+								switch(ICL_LANGUAGE_CODE):
+									case 'en':
+										echo '<div class="apply_now"><a href="'.$apply_now_button['url'].'?your-action=Membership%20Application" class="button">'.$apply_now_button['button_text'].'</a></div>';
+										break;
+									case 'zh-hans':
+										echo '<div class="apply_now"><a href="'.$apply_now_button['url'].'?your-action=会员申请" class="button">'.$apply_now_button['button_text'].'</a></div>';
+										break;								
+								endswitch;
 							}
 						echo '</div>';
 					
