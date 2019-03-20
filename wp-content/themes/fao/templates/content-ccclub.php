@@ -43,7 +43,7 @@
 										echo '<div class="apply_now"><a href="'.$apply_now_button['url'].'?your-action=Membership%20Application" class="button">'.$apply_now_button['button_text'].'</a></div>';
 										break;
 									case 'zh-hans':
-										echo '<div class="apply_now"><a href="'.$apply_now_button['url'].'?your-action=会员申请" class="button">'.$apply_now_button['button_text'].'</a></div>';
+										echo '<div class="apply_now"><a href="'.$apply_now_button['url'].'?your-action=会员登记" class="button">'.$apply_now_button['button_text'].'</a></div>';
 										break;								
 								endswitch;
 							}
